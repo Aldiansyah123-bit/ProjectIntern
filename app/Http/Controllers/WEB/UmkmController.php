@@ -1,20 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\WEB;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Bumdese;
-use Validator;
+use App\Umkm;
+use App\Region;
 
-class BumdesController extends Controller
+class UmkmController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,10 +16,13 @@ class BumdesController extends Controller
      */
     public function index()
     {
-        $bumdes = Bumdese::all();
-        return response()->json([
-            'Bumdes' => $bumdes
-        ]);
+        $data = [
+            'title' => 'Data UMKM',
+            'title1' => 'UMKM',
+        ];
+
+        $umkm = Umkm::all();
+        return view('umkm.index',compact('umkm'),$data);
     }
 
     /**
@@ -35,23 +32,21 @@ class BumdesController extends Controller
      */
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(),
-        [
+        $request->validate([
             'name'          => 'required',
+            'description'   => 'required',
             'region_id'     => 'required',
             'address'       => 'required',
-            'latitude'      => 'required|decimal',
-            'longitude'     => 'required|decimal',
+            'latitude'      => 'required',
+            'longitude'     => 'required',
             'phone'         => 'required',
             'avatar'        => 'required',
             'background'    => 'required',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors(),404]);
-        }
 
-        Bumdese::create([
+        Umkm::create([
             'name'          => $request->name,
+            'description'   => $request->description,
             'region_id'     => $request->region_id,
             'address'       => $request->address,
             'latitude'      => $request->latitude,
@@ -61,7 +56,7 @@ class BumdesController extends Controller
             'background'    => $request->background,
         ]);
 
-        return response()->json(['message' => 'Data Berhasil di Tambah']);
+        return redirect('umkm')->with('status', 'Data Berhasil di Tambah');
     }
 
     /**
@@ -81,9 +76,15 @@ class BumdesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $data = [
+            'title' => 'Tambah Data UMKM',
+            'title1' => 'UMKM'
+        ];
+
+        $region = Region::all();
+        return view('umkm.add',compact('region'),$data);
     }
 
     /**
@@ -106,20 +107,7 @@ class BumdesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),
-        [
-            'name'          => 'required',
-            'region_id'     => 'required',
-            'address'       => 'required',
-            'latitude'      => 'required|decimal',
-            'longitude'     => 'required|decimal',
-            'phone'         => 'required',
-            'avatar'        => 'required',
-            'background'    => 'required',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors(),404]);
-        }
+        //
     }
 
     /**
@@ -130,9 +118,7 @@ class BumdesController extends Controller
      */
     public function destroy($id)
     {
-        Bumdese::destroy($id);
-        return response()->json([
-            'message' => 'Data Berhasil di Hapus'
-        ]);
+        Umkm::destroy($id);
+        return redirect('umkm')->with('status', 'Data Berhasil di Hapus');
     }
 }
