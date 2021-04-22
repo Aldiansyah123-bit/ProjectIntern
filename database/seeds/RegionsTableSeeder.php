@@ -12,8 +12,8 @@ class RegionsTableSeeder extends Seeder
      */
     public function run()
     {
-        if (!file_exists(database_path('regions.json')));
-        $this->command->getOutput()->writeln('<warning>regions.json file not found.</warning>');
+        if (!file_exists(database_path('regions.json')))
+            $this->command->getOutput()->writeln('<warning>regions.json file not found.</warning>');
         $regions_json = file_get_contents(database_path('regions.json'));
         $regions = json_decode($regions_json, true)['regions'];
         if (\App\Region::query()->withoutGlobalScopes()->count() == (count($regions) + 24)) return;

@@ -10,15 +10,6 @@ use Validator;
 
 class LoginController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
-    public $successStatus = 200;
-
-
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(),
@@ -26,12 +17,9 @@ class LoginController extends Controller
             'email'         => 'required|email',
             'password'      => 'required',
         ]);
-
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 401);
         }
-
-
         if(Auth::check([
             'email' => $request->email,
             'password' => $request->password,
@@ -39,12 +27,8 @@ class LoginController extends Controller
                 $user = Auth::user();
                 $success['token'] =  $user->createToken('MyApp')->accessToken;
                 return response()->json(['success' => $success], $this->successStatus);
-        }
-        else{
+        } else {
             return response()->json(['error'=>'Terjadi Kesalahan'], 401);
         }
     }
-
-
-
 }
