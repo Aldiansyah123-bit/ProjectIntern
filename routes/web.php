@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/storage', function () {
+    \Illuminate\Support\Facades\Artisan::call('storage:link');
+    dd("storage");
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
