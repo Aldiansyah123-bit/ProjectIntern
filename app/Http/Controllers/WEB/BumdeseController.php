@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\WEB;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Bumdese;
-use Validator;
+use App\Region;
 
-class BumdesController extends Controller
+class BumdeseController extends Controller
 {
-
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth');
     }
 
     /**
@@ -22,10 +21,13 @@ class BumdesController extends Controller
      */
     public function index()
     {
+        $data = [
+            'title'  => 'Data Bumdes',
+            'title1' => 'BUMDES',
+        ];
         $bumdes = Bumdese::all();
-        return response()->json([
-            'Bumdes' => $bumdes
-        ]);
+        return view('bumdes.index', compact('bumdes'), $data);
+
     }
 
     /**
@@ -35,20 +37,16 @@ class BumdesController extends Controller
      */
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(),
-        [
-            'name'          => 'required',
-            'region_id'     => 'required',
-            'address'       => 'required',
-            'latitude'      => 'required|decimal',
-            'longitude'     => 'required|decimal',
-            'phone'         => 'required',
-            'avatar'        => 'required',
-            'background'    => 'required',
+        $request->validate([
+            'name'       => 'required',
+            'region_id'  => 'required',
+            'address'    => 'required',
+            'latitude'   => 'required',
+            'longitude'  => 'required',
+            'phone'      => 'required',
+            'avatar'     => 'required',
+            'background' => 'required',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors(),404]);
-        }
 
         Bumdese::create([
             'name'          => $request->name,
@@ -61,7 +59,7 @@ class BumdesController extends Controller
             'background'    => $request->background,
         ]);
 
-        return response()->json(['message' => 'Data Berhasil di Tambah']);
+        return redirect('bumdes')->with('status', 'Data Berhasil di Tambah');
     }
 
     /**
@@ -81,9 +79,15 @@ class BumdesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $data = [
+            'title' => 'Tambah Data Bumdes',
+            'title1' => 'BUMDES',
+        ];
+
+        $region = Region::all();
+        return view('bumdes.add',compact('region'),$data);
     }
 
     /**
@@ -106,20 +110,7 @@ class BumdesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),
-        [
-            'name'          => 'required',
-            'region_id'     => 'required',
-            'address'       => 'required',
-            'latitude'      => 'required|decimal',
-            'longitude'     => 'required|decimal',
-            'phone'         => 'required',
-            'avatar'        => 'required',
-            'background'    => 'required',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors(),404]);
-        }
+        //
     }
 
     /**
@@ -131,8 +122,6 @@ class BumdesController extends Controller
     public function destroy($id)
     {
         Bumdese::destroy($id);
-        return response()->json([
-            'message' => 'Data Berhasil di Hapus'
-        ]);
+        return redirect('bumdes')->with('status', 'Data Berhasil di Hapus');
     }
 }
