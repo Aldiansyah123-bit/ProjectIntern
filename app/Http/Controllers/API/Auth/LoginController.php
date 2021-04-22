@@ -26,7 +26,7 @@ class LoginController extends Controller
             ])){
                 $user = Auth::user();
                 $success['token'] =  $user->createToken('MyApp')->accessToken;
-                return response()->json(['success' => $success], $this->successStatus);
+                return response()->json(['success' => $success], 200);
         } else {
             return response()->json(['error'=>'Terjadi Kesalahan'], 401);
         }
