@@ -93,7 +93,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-                <a href="/home" class="nav-link">
+                <a href="/home" class="nav-link {{request()->is('home')? 'active': ''}}">
                     <i class="nav-icon fa fa-tachometer-alt"></i>
                     <p>
                         Dashboard
@@ -101,7 +101,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/bumdes" class="nav-link">
+                <a href="/bumdes" class="nav-link {{request()->is('bumdes')? 'active': ''}}">
                     <i class="nav-icon fa fa-home"></i>
                     <p>
                         BUMDES
@@ -109,7 +109,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/umkm" class="nav-link">
+                <a href="/umkm" class="nav-link {{request()->is('umkm')? 'active': ''}}">
                     <i class="nav-icon fa fa-shopping-cart"></i>
                     <p>
                         UMKM
@@ -117,7 +117,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/product" class="nav-link">
+                <a href="/product" class="nav-link {{request()->is('product')? 'active': ''}}">
                     <i class="nav-icon fa fa-shopping-cart"></i>
                     <p>
                         PRODUCT
