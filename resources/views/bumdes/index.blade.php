@@ -42,11 +42,7 @@
                                     <th>Name</th>
                                     <th>Region</th>
                                     <th>Address</th>
-                                    <th>Latitude</th>
-                                    <th>Longitude</th>
                                     <th>Phone Number</th>
-                                    <th>Avatar</th>
-                                    <th>Background</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -58,12 +54,9 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->region->name }}</td>
                                         <td>{{ $item->address }}</td>
-                                        <td>{{ $item->latitude }}</td>
-                                        <td>{{ $item->longitude }}</td>
                                         <td>{{ $item->phone }}</td>
-                                        <td>{{ $item->avatar }}</td>
-                                        <td>{{ $item->background }}</td>
                                         <td class="text-center">
+                                            <a href="/bumdes/detail/{{ $item->id}}" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-eye"></i></a>
                                             <a href="/bumdes/edit/{{ $item->id}}" class="btn btn-sm btn-flat btn-warning"><i class="fa fa-edit"></i></a>
                                             <button class="btn btn-sm btn-flat btn-danger" data-toggle="modal" data-target="#delete{{ $item->id}}"><i class="fa fa-trash"></i></button>
                                         </td>
