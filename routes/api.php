@@ -45,3 +45,4 @@ Route::post('/product/create', 'API\ProductController@create');
 Route::post('/product/update/{id}', 'API\ProductController@update');
 Route::delete('/product/delete/{id}', 'API\ProductController@destroy');
 
+//Banner

@@ -49,5 +49,13 @@ Route::post('/product/create', 'WEB\ProductController@create');
 Route::get('/product/delete/{id}', 'WEB\ProductController@destroy');
 Route::post('/product/getproduct', 'WEB\ProductController@getProduct')->name('product.getProduct');
 
+//banner
+Route::get('/banner', 'WEB\BannerController@index');
+Route::get('/banner/add', 'WEB\BannerController@show');
+Route::get('/banner/edit/{id}', 'WEB\BannerController@edit');
+Route::post('/banner/update/{id}', 'WEB\BannerController@update');
+Route::post('/banner/create', 'WEB\BannerController@create');
+Route::get('/banner/delete/{id}', 'WEB\BannerController@destroy');
+
 //Region
 Route::post('region/getregion', 'WEB\RedionController@getRegion')->name('region.getRegion');
