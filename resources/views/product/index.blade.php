@@ -40,9 +40,9 @@
                                 <tr>
                                     <th width="30px" class="text-center">No</th>
                                     <th>Name</th>
-                                    <th>Region</th>
-                                    <th>Address</th>
-                                    <th>Phone Number</th>
+                                    <th>UMKM</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -52,9 +52,9 @@
                                     <tr>
                                         <td class="text-center">{{ $no++ }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->region->name }}</td>
-                                        <td>{{ $item->address }}</td>
-                                        <td>{{ $item->phone }}</td>
+                                        <td>{{ $item->umkm->name }}</td>
+                                        <td>{{ $item->description }}</td>
+                                        <td>{{ $item->price }}</td>
                                         <td class="text-center">
                                             <a href="/product/detail/{{ $item->id}}" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-eye"></i></a>
                                             <a href="/product/edit/{{ $item->id}}" class="btn btn-sm btn-flat btn-warning"><i class="fa fa-edit"></i></a>

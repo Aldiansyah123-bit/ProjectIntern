@@ -1,14 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\WEB;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
-use App\Umkm;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,13 +21,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = [
-            'title' => 'Data Product',
-            'title1' => 'PRODUCT',
-        ];
-
         $product = Product::all();
-        return view('product.index',compact('product'),$data);
+        return response()->json(['Product' => $product]);
+    }
+
+    public function detail($id)
+    {
+        $product = Product::where('id',$id)->get();
+
+        return response()->json([
+            'Product' => $product
+        ]);
     }
 
     /**
@@ -54,7 +63,7 @@ class ProductController extends Controller
                 'img'            => $fileimg,
         ]);
 
-        return redirect('product')->with('status', 'Data Berhasil di Tambah');
+        return response()->json(['message' => 'Data Berhasil di Tambah']);
     }
 
     /**
@@ -63,44 +72,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getProduct(Request $request)
+    public function store(Request $request)
     {
-
-        $search = $request->search;
-
-        if($search == ''){
-            $umkm = Umkm::orderby('name','asc')
-                        ->select('id','name')
-                        ->limit(8)
-                        ->get();
-        }else{
-            $umkm = Umkm::orderby('name','asc')
-                        ->select('id','name')
-                        ->where('name', 'like', '%' .$search . '%')
-                        ->limit(8)
-                        ->get();
-        }
-
-        $response = array();
-        foreach($umkm as $umkms){
-            $response[] = array(
-                "id"      =>$umkms->id,
-                "text"    =>$umkms->name
-            );
-        }
-
-        echo json_encode($response);
-        exit;
-    }
-
-    public function detail($id)
-    {
-        $data = [
-            'title'  => 'Detail Data Product',
-            'title1' => 'Product',
-        ];
-        $product = Product::where('id',$id)->get();
-        return view('product.detail', compact('product'), $data);
+        //
     }
 
     /**
@@ -109,15 +83,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $data = [
-            'title' => 'Tambah Data Product',
-            'title1' => 'Product'
-        ];
-
-        $product = Product::all();
-        return view('product.add',compact('product'),$data);
+        //
     }
 
     /**
@@ -128,12 +96,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $data = [
-            'title'  => 'Edit Data Product',
-            'title1' => 'Product',
-        ];
-        $product = Product::where('id',$id)->first();
-        return view('product.edit', compact('product'), $data);
+        //
     }
 
     /**
@@ -189,7 +152,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect('product')->with('status', 'Data Berhasil di Update');
+        return response()->json(['message' => 'Data Berhasil di Update']);
     }
 
     /**
@@ -207,6 +170,7 @@ class ProductController extends Controller
         }
 
         Product::destroy($id);
-        return redirect('product')->with('status', 'Data Berhasil di Hapus');
+
+        return response()->json(['message' => 'Data Berhasil di Hapus']);
     }
 }

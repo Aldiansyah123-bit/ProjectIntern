@@ -32,6 +32,19 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
+                            <label>UMKM</label>
+                                <select id="umkms" name="umkm_id" class="form-control">
+                                    <option value="">--Name Umkm--</option>
+                                </select>
+                                <div class="text-danger">
+                                    @error('umkm_id')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
                             <label>Name</label>
                                 <input name="name" class="form-control" placeholder="name">
                                 <div class="text-danger">
@@ -43,12 +56,10 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Region</label>
-                                <select id="regions" name="region_id" class="form-control">
-                                    <option value="">--Name Region--</option>
-                                </select>
+                            <label>Description</label>
+                                <input name="description" class="form-control" placeholder="Description">
                                 <div class="text-danger">
-                                    @error('region_id')
+                                    @error('description')
                                         {{ $message }}
                                     @enderror
                                 </div>
@@ -56,10 +67,10 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Address</label>
-                                <input name="address" class="form-control" placeholder="address">
+                            <label>Price</label>
+                                <input name="price" class="form-control" placeholder="Price">
                                 <div class="text-danger">
-                                    @error('address')
+                                    @error('price')
                                         {{ $message }}
                                     @enderror
                                 </div>
@@ -67,10 +78,10 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Latitude</label>
-                                <input name="latitude" class="form-control" placeholder="latitude">
+                            <label>Stok</label>
+                                <input name="stok" class="form-control" placeholder="Stok">
                                 <div class="text-danger">
-                                    @error('latitude')
+                                    @error('stok')
                                         {{ $message }}
                                     @enderror
                                 </div>
@@ -78,43 +89,10 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Longitude</label>
-                                <input name="longitude" class="form-control" placeholder="longitude">
-                                <div class="text-danger">
-                                    @error('longitude')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                                <input name="phone" class="form-control" placeholder="phone">
-                                <div class="text-danger">
-                                    @error('phone')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Avatar</label>
-                                <input type="file" name="avatar" class="form-control" accept="image/png">
+                            <label>Img</label>
+                                <input type="file" name="img" class="form-control" accept="image/png">
                             <div class="text-danger">
-                                @error('avatar')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Background</label>
-                                <input type="file" name="background" class="form-control" accept="image/png">
-                            <div class="text-danger">
-                                @error('background')
+                                @error('img')
                                     {{ $message }}
                                 @enderror
                             </div>
@@ -124,7 +102,7 @@
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Simpan</button>
-                <a href="/bumdes" class="float-right btn btn-warning">Cancel</a>
+                <a href="/product" class="float-right btn btn-warning">Cancel</a>
             </div>
         </form>
     </div>
@@ -136,9 +114,9 @@
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $(document).ready(function(){
 
-      $( "#regions" ).select2({
+      $( "#umkms" ).select2({
         ajax: {
-          url: "{{route('region.getRegion')}}",
+          url: "{{route('product.getProduct')}}",
           type: "post",
           dataType: 'json',
           delay: 250,

@@ -39,5 +39,15 @@ Route::post('/umkm/update/{id}', 'WEB\UmkmController@update');
 Route::post('/umkm/create', 'WEB\UmkmController@create');
 Route::get('/umkm/delete/{id}', 'WEB\UmkmController@destroy');
 
+//Product
+Route::get('/product', 'WEB\ProductController@index');
+Route::get('/product/add', 'WEB\ProductController@show');
+Route::get('/product/detail/{id}', 'WEB\ProductController@detail');
+Route::get('/product/edit/{id}', 'WEB\ProductController@edit');
+Route::post('/product/update/{id}', 'WEB\ProductController@update');
+Route::post('/product/create', 'WEB\ProductController@create');
+Route::get('/product/delete/{id}', 'WEB\ProductController@destroy');
+Route::post('/product/getproduct', 'WEB\ProductController@getProduct')->name('product.getProduct');
+
 //Region
 Route::post('region/getregion', 'WEB\RedionController@getRegion')->name('region.getRegion');

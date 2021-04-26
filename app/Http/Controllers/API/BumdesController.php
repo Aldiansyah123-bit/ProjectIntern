@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Bumdese;
-use Validator;
 
 class BumdesController extends Controller
 {
@@ -28,6 +27,15 @@ class BumdesController extends Controller
         ]);
     }
 
+    public function detail($id)
+    {
+        $bumdes = Bumdese::where('id',$id)->get();
+
+        return response()->json([
+            'Bumdes' => $bumdes
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,20 +43,24 @@ class BumdesController extends Controller
      */
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(),
-        [
-            'name'          => 'required',
-            'region_id'     => 'required',
-            'address'       => 'required',
-            'latitude'      => 'required|decimal',
-            'longitude'     => 'required|decimal',
-            'phone'         => 'required',
-            'avatar'        => 'required',
-            'background'    => 'required',
+        $request->validate([
+            'name'       => 'required',
+            'region_id'  => 'required',
+            'address'    => 'required',
+            'latitude'   => 'required',
+            'longitude'  => 'required',
+            'phone'      => 'required',
+            'avatar'     => 'required',
+            'background' => 'required',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors(),404]);
-        }
+
+        $file       = Request()->avatar;
+        $fileavatar = $file->getClientOriginalName();
+        $file       ->move(public_path('avatar'),$fileavatar);
+
+        $file       = Request()->background;
+        $filebackground = $file->getClientOriginalName();
+        $file       ->move(public_path('background'),$filebackground);
 
         Bumdese::create([
             'name'          => $request->name,
@@ -57,8 +69,8 @@ class BumdesController extends Controller
             'latitude'      => $request->latitude,
             'longitude'     => $request->longitude,
             'phone'         => $request->phone,
-            'avatar'        => $request->avatar,
-            'background'    => $request->background,
+            'avatar'        => $fileavatar,
+            'background'    => $filebackground,
         ]);
 
         return response()->json(['message' => 'Data Berhasil di Tambah']);
@@ -106,20 +118,68 @@ class BumdesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),
-        [
-            'name'          => 'required',
-            'region_id'     => 'required',
-            'address'       => 'required',
-            'latitude'      => 'required|decimal',
-            'longitude'     => 'required|decimal',
-            'phone'         => 'required',
-            'avatar'        => 'required',
-            'background'    => 'required',
+        $request->validate([
+            'name'       => 'required',
+            'region_id'  => 'required',
+            'address'    => 'required',
+            'latitude'   => 'required',
+            'longitude'  => 'required',
+            'phone'      => 'required',
+            'avatar'     => 'required',
+            'background' => 'required',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors(),404]);
+
+        if (Request()->avatar <> "") {
+            //Hapus gambar Lama
+            $bumdes = Bumdese::where('id',$id)->first();
+            if ($bumdes->avatar <> "") {
+                unlink(public_path('avatar'). '/' .$bumdes->avatar);
+            }
         }
+        if (Request()->background <> "") {
+            //Hapus gambar Lama
+            $bumdes = Bumdese::where('id',$id)->first();
+            if ($bumdes->avatar <> "") {
+                unlink(public_path('background'). '/' .$bumdes->background);
+            }
+
+            //jika ingin ganti gambar
+            $file       = Request()->avatar;
+            $fileavatar = $file->getClientOriginalName();
+            $file       ->move(public_path('avatar'),$fileavatar);
+
+            $file       = Request()->background;
+            $filebackground = $file->getClientOriginalName();
+            $file       ->move(public_path('background'),$filebackground);
+
+            Bumdese::findOrFail($id)->update([
+                'name'          => $request->name,
+                'region_id'     => $request->region_id,
+                'address'       => $request->address,
+                'latitude'      => $request->latitude,
+                'longitude'     => $request->longitude,
+                'phone'         => $request->phone,
+                'avatar'        => $fileavatar,
+                'background'    => $filebackground,
+            ]);
+
+        } else {
+
+            //Jika tidak ingin mengganti icon
+            Bumdese::findOrFail($id)->update([
+                'name'          => $request->name,
+                'region_id'     => $request->region_id,
+                'address'       => $request->address,
+                'latitude'      => $request->latitude,
+                'longitude'     => $request->longitude,
+                'phone'         => $request->phone,
+                'avatar'        => $request->avatar,
+                'background'    => $request->background,
+            ]);
+        }
+
+        return response()->json(['message' => 'Data Berhasil di Update']);
+
     }
 
     /**
@@ -130,6 +190,14 @@ class BumdesController extends Controller
      */
     public function destroy($id)
     {
+        $bumdes = Bumdese::where('id',$id)->first();
+
+        if ($bumdes->avatar <> "") {
+            unlink(public_path('avatar'). '/' .$bumdes->avatar);
+        }
+        if ($bumdes->background <> "") {
+            unlink(public_path('background'). '/' .$bumdes->background);
+        }
         Bumdese::destroy($id);
         return response()->json([
             'message' => 'Data Berhasil di Hapus'

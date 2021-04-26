@@ -39,14 +39,12 @@
                             <thead>
                                 <tr>
                                     <th width="30px" class="text-center">No</th>
+                                    <th>UMKM</th>
                                     <th>Name</th>
-                                    <th>Region</th>
-                                    <th>Address</th>
-                                    <th>Latitude</th>
-                                    <th>Longitude</th>
-                                    <th>Phone Number</th>
-                                    <th>Avatar</th>
-                                    <th>Background</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Stok</th>
+                                    <th>Image</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,14 +52,12 @@
                                 @foreach ($product as $item)
                                     <tr>
                                         <td class="text-center">{{ $no++ }}</td>
+                                        <td>{{ $item->umkm->name }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->region->name }}</td>
-                                        <td>{{ $item->address }}</td>
-                                        <td>{{ $item->latitude }}</td>
-                                        <td>{{ $item->longitude }}</td>
-                                        <td>{{ $item->phone }}</td>
-                                        <td><img src="{{ asset('avatar') }}/{{ $item->avatar }}" width="100px"></td>
-                                        <td><img src="{{ asset('background') }}/{{ $item->background }}" width="100px"></td>
+                                        <td>{{ $item->description }}</td>
+                                        <td>{{ $item->price }}</td>
+                                        <td>{{ $item->stok }}</td>
+                                        <td class="text-center"><img src="{{ asset('img') }}/{{ $item->img }}" width="100px"></td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -32,6 +32,19 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
+                            <label>UMKM</label>
+                                <select id="umkms" name="umkm_id" class="form-control">
+                                    <option value="{{ $product->umkm->name}}">--Name Umkm--</option>
+                                </select>
+                                <div class="text-danger">
+                                    @error('umkm_id')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
                             <label>Name</label>
                                 <input name="name" class="form-control" value="{{ $product->name}}">
                                 <div class="text-danger">
@@ -43,12 +56,10 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Region</label>
-                                <select id="regions" name="region_id" class="form-control">
-                                    <option value="">--Name Region--</option>
-                                </select>
+                            <label>Description</label>
+                                <input name="description" class="form-control" value="{{ $product->description}}">
                                 <div class="text-danger">
-                                    @error('region_id')
+                                    @error('description')
                                         {{ $message }}
                                     @enderror
                                 </div>
@@ -56,10 +67,10 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Address</label>
-                                <input name="address" class="form-control" value="{{ $product->address}}">
+                            <label>Price</label>
+                                <input name="price" class="form-control" value="{{ $product->price}}">
                                 <div class="text-danger">
-                                    @error('address')
+                                    @error('price')
                                         {{ $message }}
                                     @enderror
                                 </div>
@@ -67,10 +78,10 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Latitude</label>
-                                <input name="latitude" class="form-control" value="{{ $product->latitude}}">
+                            <label>Stok</label>
+                                <input name="stok" class="form-control" value="{{ $product->stok}}">
                                 <div class="text-danger">
-                                    @error('latitude')
+                                    @error('stok')
                                         {{ $message }}
                                     @enderror
                                 </div>
@@ -78,58 +89,19 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Longitude</label>
-                                <input name="longitude" class="form-control" value="{{ $product->longitude}}">
-                                <div class="text-danger">
-                                    @error('longitude')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                                <input name="phone" class="form-control" value="{{ $product->phone}}">
-                                <div class="text-danger">
-                                    @error('phone')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Avatar</label>
-                                <input type="file" name="avatar" class="form-control" accept="image/png">
+                            <label>Image</label>
+                                <input type="file" name="img" class="form-control" accept="image/png">
                             <div class="text-danger">
-                                @error('avatar')
+                                @error('img')
                                     {{ $message }}
                                 @enderror
                             </div>
                         </div>
-                    </div>
+                    </div><br>
                     <div class="col-sm-6">
+                        <label>Image</label>
                         <div class="form-group">
-                            <label>Background</label>
-                                <input type="file" name="background" class="form-control" accept="image/png">
-                            <div class="text-danger">
-                                @error('background')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                                <img src="{{ asset('avatar')}}/{{ $product->avatar}}" width="300px">
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                                <img src="{{ asset('background')}}/{{ $product->background}}" width="300px">
+                                <img src="{{ asset('img')}}/{{ $product->img}}" width="300px">
                         </div>
                     </div>
                 </div>
@@ -148,9 +120,9 @@
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $(document).ready(function(){
 
-      $( "#regions" ).select2({
+      $( "#umkms" ).select2({
         ajax: {
-          url: "{{route('region.getRegion')}}",
+          url: "{{route('product.getProduct')}}",
           type: "post",
           dataType: 'json',
           delay: 250,
@@ -171,6 +143,6 @@
       });
 
     });
-    </script>
+</script>
 
 @endsection
