@@ -46,3 +46,7 @@ Route::post('/product/update/{id}', 'API\ProductController@update');
 Route::delete('/product/delete/{id}', 'API\ProductController@destroy');
 
 //Banner
+Route::get('/banner', 'API\BannerController@index');
+Route::post('/banner/create', 'API\BannerController@create');
+Route::post('/banner/update/{id}', 'API\BannerController@update');
+Route::delete('/banner/delete/{id}', 'API\BannerController@destroy');

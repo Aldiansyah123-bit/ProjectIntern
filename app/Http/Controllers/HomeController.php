@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Banner;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,7 @@ class HomeController extends Controller
         $data = [
             'title' => 'Dasboard',
         ];
-        return view('home', $data);
+        $banner = Banner::all();
+        return view('home',['banners' => $banner], $data);
     }
 }

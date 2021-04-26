@@ -47,7 +47,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Image</label>
-                                <input type="file" name="img" class="form-control" accept="image/png">
+                                <input type="file" name="img" class="form-control" accept="image/png/jpg">
                             <div class="text-danger">
                                 @error('img')
                                     {{ $message }}

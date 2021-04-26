@@ -13,7 +13,7 @@
 </div>
 @endsection
 @section('content')
-<div class="col-md-12">
+<div class="col-md-6">
     <div class="card card-outline card-primary">
         <div class="card-header">
             <h3 class="card-title">{{ $title }}</h3>
@@ -21,8 +21,7 @@
         <form action="/banner/update/{{$banner->id}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label>Name</label>
                                 <input name="name" class="form-control" value="{{ $banner->name}}">
@@ -33,7 +32,7 @@
                                 </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label>Description</label>
                                 <input name="description" class="form-control" value="{{ $banner->description}}">
@@ -44,24 +43,22 @@
                                 </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label>Image</label>
-                                <input type="file" name="img" class="form-control" accept="image/png">
+                                <input type="file" name="img" class="form-control" accept="image/png/jpg">
                             <div class="text-danger">
                                 @error('img')
                                     {{ $message }}
                                 @enderror
                             </div>
                         </div>
-                    </div><br>
+                    </div>
                     <div class="col-sm-6">
-                        <label>Image</label>
                         <div class="form-group">
-                                <img src="{{ asset('img')}}/{{ $banner->img}}" width="300px">
+                                <img src="{{ asset('img')}}/{{ $banner->img}}" width="500px">
                         </div>
                     </div>
-                </div>
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Simpan</button>

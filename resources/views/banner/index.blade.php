@@ -52,7 +52,7 @@
                                         <td class="text-center">{{ $no++ }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->description }}</td>
-                                        <td><img src="{{ asset('img') }}/{{ $item->img }}" width="100px"></td>
+                                        <td class="text-center"><img src="{{ asset('img') }}/{{ $item->img }}" width="100px"></td>
                                         <td class="text-center">
                                             <a href="/banner/edit/{{ $item->id}}" class="btn btn-sm btn-flat btn-warning"><i class="fa fa-edit"></i></a>
                                             <button class="btn btn-sm btn-flat btn-danger" data-toggle="modal" data-target="#delete{{ $item->id}}"><i class="fa fa-trash"></i></button>

@@ -124,6 +124,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="/banner" class="nav-link {{request()->is('banner')? 'active': ''}}">
+                    <i class="nav-icon fa fa-camera"></i>
+                    <p>
+                        BANNER
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

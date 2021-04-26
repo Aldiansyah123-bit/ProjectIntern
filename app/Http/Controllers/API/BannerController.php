@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\WEB;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,8 +10,9 @@ class BannerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:api');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,13 +20,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $data = [
-            'title' => 'Data Banner',
-            'title1' => 'Banner',
-        ];
-
         $banner = Banner::all();
-        return view('banner.index',compact('banner'),$data);
+        return response()->json(['banner' => $banner]);
     }
 
     /**
@@ -51,7 +47,7 @@ class BannerController extends Controller
                 'img'            => $fileimg,
         ]);
 
-        return redirect('banner')->with('status', 'Data Berhasil di Tambah');
+        return response()->json(['message' => 'Data Berhasil di Tambah']);
     }
 
     /**
@@ -71,13 +67,9 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $data = [
-            'title' => 'Tambah Data Banner',
-            'title1' => 'Banner'
-        ];
-        return view('banner.add',$data);
+        //
     }
 
     /**
@@ -88,12 +80,7 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $data = [
-            'title'  => 'Edit Data Banner',
-            'title1' => 'Banner',
-        ];
-        $banner = Banner::where('id',$id)->first();
-        return view('banner.edit', compact('banner'), $data);
+        //
     }
 
     /**
@@ -140,7 +127,7 @@ class BannerController extends Controller
             ]);
         }
 
-        return redirect('banner')->with('status', 'Data Berhasil di Update');
+        return response()->json(['message' => 'Data Berhasil di Update']);
     }
 
     /**
@@ -158,6 +145,6 @@ class BannerController extends Controller
         }
 
         Banner::destroy($id);
-        return redirect('banner')->with('status', 'Data Berhasil di Hapus');
+        return response()->json(['message' => 'Data Berhasil di Hapus']);
     }
 }

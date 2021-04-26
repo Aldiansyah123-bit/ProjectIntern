@@ -19,7 +19,7 @@ class RegisterController extends Controller
             'name'          => 'required',
             'region_id'     => 'required',
             'address'       => 'required',
-            'email'         => 'required|email',
+            'email'         => 'required|email|unique:users',
             'password'      => 'required',
         ]);
 
