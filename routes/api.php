@@ -22,7 +22,8 @@ Route::post('/logout', 'API\Auth\LogoutController@logout');
 //User
 Route::get('/data-user', 'API\UserController@index');
 
-
+//Region
+Route::get('/regions', 'API\RegionController@index');
 
 //BUMDES
 Route::get('/bumdes', 'API\BumdesController@index');
