@@ -36,7 +36,7 @@ class BannerController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'name'          => 'required',
+            'name'          => 'string|nullable',
             'description'   => 'string|nullable',
             'img'           => 'image|max:1024|nullable',
         ]);
@@ -106,7 +106,7 @@ class BannerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'          => 'required',
+            'name'          => 'string|nullable',
             'description'   => 'string|nullable',
             'img'           => 'image|max:1024|nullable',
         ]);

@@ -42,6 +42,7 @@ Route::delete('/umkm/delete/{id}', 'API\UmkmController@destroy');
 //Product
 Route::get('/product', 'API\ProductController@index');
 Route::get('/product/detail/{id}', 'API\ProductController@detail');
+Route::get('/product/getproduct', 'API\ProductController@getProduct');
 Route::post('/product/create', 'API\ProductController@create');
 Route::post('/product/update/{id}', 'API\ProductController@update');
 Route::delete('/product/delete/{id}', 'API\ProductController@destroy');
@@ -51,3 +52,20 @@ Route::get('/banner', 'API\BannerController@index');
 Route::post('/banner/create', 'API\BannerController@create');
 Route::post('/banner/update/{id}', 'API\BannerController@update');
 Route::delete('/banner/delete/{id}', 'API\BannerController@destroy');
+
+//Cart
+Route::get('/cart', 'API\CartController@index');
+Route::post('/cart/create', 'API\CartController@create');
+Route::get('/cart/show/{id}', 'API\CartController@show');
+Route::post('/cart/update/{id}', 'API\CartController@update');
+Route::delete('/cart/delete/{id}', 'API\CartController@destroy');
+Route::get('/cart/getAddUs', 'API\CartController@getAddUser');
+Route::get('/cart/getAddU', 'API\CartController@getAddUmkm');
+Route::get('/cart/getAddB', 'API\CartController@getAddBumdes');
+
+//Cartdetail
+Route::get('/cartdetail', 'API\CartdetailController@index');
+Route::post('/cartdetail/create', 'API\CartdetailController@create');
+Route::get('/cartdetail/show/{id}', 'API\CartdetailController@show');
+Route::post('/cartdetail/update/{id}', 'API\CartdetailController@update');
+Route::delete('/cartdetail/delete/{id}', 'API\CartdetailController@destroy');

@@ -40,8 +40,8 @@ class UmkmController extends Controller
             'latitude'      => 'required',
             'longitude'     => 'required',
             'phone'         => 'required',
-            'avatar'        => 'image|max:1024|nullable',
-            'background'    => 'image|max:1024|nullable',
+            'avatar'        => 'image|max:2000|nullable',
+            'background'    => 'image|max:2000|nullable',
         ]);
 
         if($request->hasFile('avatar')){
@@ -152,8 +152,8 @@ class UmkmController extends Controller
             'latitude'      => 'required',
             'longitude'     => 'required',
             'phone'         => 'required',
-            'avatar'        => 'image|max:1024|nullable',
-            'background'    => 'image|max:1024|nullable',
+            'avatar'        => 'image|max:2000|nullable',
+            'background'    => 'image|max:2000|nullable',
         ]);
 
         $umkm = Umkm::where('id',$id)->first();

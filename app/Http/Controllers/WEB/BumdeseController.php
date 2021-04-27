@@ -45,8 +45,8 @@ class BumdeseController extends Controller
             'latitude'   => 'required|numeric',
             'longitude'  => 'required|numeric',
             'phone'      => 'required',
-            'avatar'     => 'image|max:1024|nullable',
-            'background' => 'image|max:1024|nullable',
+            'avatar'     => 'image|max:2000|nullable',
+            'background' => 'image|max:2000|nullable',
         ]);
 
         if($request->hasFile('avatar')){
@@ -154,8 +154,8 @@ class BumdeseController extends Controller
             'latitude'   => 'required|numeric',
             'longitude'  => 'required|numeric',
             'phone'      => 'required',
-            'avatar'     => 'image|max:1024|nullable',
-            'background' => 'image|max:1024|nullable',
+            'avatar'     => 'image|max:2000|nullable',
+            'background' => 'image|max:2000|nullable',
         ]);
 
         $bumdes = Bumdese::where('id',$id)->first();
