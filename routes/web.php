@@ -22,6 +22,11 @@ Route::get('/storage', function () {
     dd("storage");
 });
 
+Route::get('/migrate', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate');
+    dd("migrate");
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
