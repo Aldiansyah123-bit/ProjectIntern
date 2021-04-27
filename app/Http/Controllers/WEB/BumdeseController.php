@@ -100,8 +100,8 @@ class BumdeseController extends Controller
             'title1' => 'BUMDES',
         ];
 
-        $region = Region::all();
-        return view('bumdes.add',compact('region'),$data);
+//        $region = Region::all();
+        return view('bumdes.add',$data);
     }
 
     /**

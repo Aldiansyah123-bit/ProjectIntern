@@ -58,4 +58,4 @@ Route::post('/banner/create', 'WEB\BannerController@create');
 Route::get('/banner/delete/{id}', 'WEB\BannerController@destroy');
 
 //Region
-Route::post('region/getregion', 'WEB\RedionController@getRegion')->name('region.getRegion');
+Route::get('region/getregion', 'WEB\RegionController@getRegion')->name('region.getRegion');

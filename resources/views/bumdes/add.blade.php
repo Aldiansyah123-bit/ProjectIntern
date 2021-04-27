@@ -139,7 +139,7 @@
       $( "#regions" ).select2({
         ajax: {
           url: "{{route('region.getRegion')}}",
-          type: "post",
+          type: "get",
           dataType: 'json',
           delay: 250,
           data: function (params) {
