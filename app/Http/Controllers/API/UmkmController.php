@@ -50,8 +50,8 @@ class UmkmController extends Controller
             'latitude'      => 'required',
             'longitude'     => 'required',
             'phone'         => 'required',
-            'avatar'        => 'required',
-            'background'    => 'required',
+            'avatar'        => 'file|size:1024',
+            'background'    => 'file|size:1024',
         ]);
 
         $file       = Request()->avatar;
@@ -127,60 +127,51 @@ class UmkmController extends Controller
             'latitude'      => 'required',
             'longitude'     => 'required',
             'phone'         => 'required',
-            'avatar'        => 'required',
-            'background'    => 'required',
+            'avatar'        => 'image|max:1024|nullable',
+            'background'    => 'image|max:1024|nullable',
         ]);
 
-        if (Request()->avatar <> "") {
+        $umkm = Umkm::where('id',$id)->first();
+        if ($request->hasFile('avatar')) {
             //Hapus gambar Lama
-            $umkm = Umkm::where('id',$id)->first();
-            if ($umkm->avatar <> "") {
+            if ($umkm->avatar) {
                 unlink(public_path('avatar'). '/' .$umkm->avatar);
             }
+            $filenameWithExt = $request->file('avatar')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('avatar')->getClientOriginalExtension();
+            $fileavatarSimpan = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('avatar')->move(public_path('avatar'),$fileavatarSimpan);
+        }else{
+            $fileavatarSimpan = $umkm->avatar;
         }
-        if (Request()->background <> "") {
+
+        if ($request->hasFile('background')) {
             //Hapus gambar Lama
-            $umkm = Umkm::where('id',$id)->first();
-            if ($umkm->avatar <> "") {
+            if ($umkm->background) {
                 unlink(public_path('background'). '/' .$umkm->background);
             }
-
-            //jika ingin ganti gambar
-            $file       = Request()->avatar;
-            $fileavatar = $file->getClientOriginalName();
-            $file       ->move(public_path('avatar'),$fileavatar);
-
-            $file       = Request()->background;
-            $filebackground = $file->getClientOriginalName();
-            $file       ->move(public_path('background'),$filebackground);
-
-            Umkm::findOrFail($id)->update([
-                'name'          => $request->name,
-                'description'   => $request->description,
-                'region_id'     => $request->region_id,
-                'address'       => $request->address,
-                'latitude'      => $request->latitude,
-                'longitude'     => $request->longitude,
-                'phone'         => $request->phone,
-                'avatar'        => $fileavatar,
-                'background'    => $filebackground,
-            ]);
-
-        } else {
-
-            //Jika tidak ingin mengganti icon
-            Umkm::findOrFail($id)->update([
-                'name'          => $request->name,
-                'description'   => $request->description,
-                'region_id'     => $request->region_id,
-                'address'       => $request->address,
-                'latitude'      => $request->latitude,
-                'longitude'     => $request->longitude,
-                'phone'         => $request->phone,
-                'avatar'        => $request->avatar,
-                'background'    => $request->background,
-            ]);
+            $filenameWithExt = $request->file('background')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('background')->getClientOriginalExtension();
+            $filebackgroundSimpan = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('background')->move(public_path('background'),$filebackgroundSimpan);
+        }else{
+            $filebackgroundSimpan = $umkm->background;
         }
+
+        Umkm::findOrFail($id)->update([
+            'name'          => $request->name,
+            'description'   => $request->description,
+            'region_id'     => $request->region_id,
+            'address'       => $request->address,
+            'latitude'      => $request->latitude,
+            'longitude'     => $request->longitude,
+            'phone'         => $request->phone,
+            'avatar'        => $fileavatarSimpan,
+            'background'    => $filebackgroundSimpan,
+        ]);
+
 
         return response()->json(['message' => 'Data Berhasil di Update']);
     }

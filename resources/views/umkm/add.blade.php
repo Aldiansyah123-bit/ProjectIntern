@@ -52,7 +52,7 @@
                                 </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label>Region</label>
                                 <select id="regions" name="region_id" class="form-control">
@@ -149,7 +149,7 @@
       $( "#regions" ).select2({
         ajax: {
           url: "{{route('region.getRegion')}}",
-          type: "post",
+          type: "get",
           dataType: 'json',
           delay: 250,
           data: function (params) {
