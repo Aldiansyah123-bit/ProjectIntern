@@ -147,7 +147,7 @@
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Simpan</button>
-                <a href="/bumdes" class="float-right btn btn-warning">Cancel</a>
+                <a href="/umkm" class="float-right btn btn-warning">Cancel</a>
             </div>
         </form>
     </div>
@@ -162,7 +162,7 @@
       $( "#regions" ).select2({
         ajax: {
           url: "{{route('region.getRegion')}}",
-          type: "post",
+          type: "get",
           dataType: 'json',
           delay: 250,
           data: function (params) {

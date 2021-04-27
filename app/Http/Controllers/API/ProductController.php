@@ -44,15 +44,24 @@ class ProductController extends Controller
         $request->validate([
             'umkm_id'       => 'required',
             'name'          => 'required',
-            'description'   => 'required',
+            'description'   => 'string|nullable',
             'price'         => 'required',
             'stok'          => 'required',
-            'img'           => 'required',
+            'img'           => 'image|max:1024|nullable',
         ]);
 
-        $file       = Request()->img;
-        $fileimg    = $file->getClientOriginalName();
-        $file       ->move(public_path('img'),$fileimg);
+        if($request->hasFile('img')){
+            // ada file yang diupload
+            $filenameWithExt = $request->file('img')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('img')->getClientOriginalExtension();
+            $fileimgSimpan = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('img')->move(public_path('img'),$fileimgSimpan);
+
+        }else{
+            // tidak ada file yang diupload
+            $fileimgSimpan =  null;
+        }
 
         Product::create([
                 'umkm_id'        => $request->umkm_id,
@@ -60,7 +69,7 @@ class ProductController extends Controller
                 'description'    => $request->description,
                 'price'          => $request->price,
                 'stok'           => $request->stok,
-                'img'            => $fileimg,
+                'img'            => $fileimgSimpan,
         ]);
 
         return response()->json(['message' => 'Data Berhasil di Tambah']);
@@ -114,43 +123,32 @@ class ProductController extends Controller
             'description'   => 'required',
             'price'         => 'required',
             'stok'          => 'required',
-            'img'           => 'required',
+            'img'           => 'file|size:1024',
         ]);
 
-        if (Request()->img <> "") {
+        $product = Product::where('id',$id)->first();
+        if ($request->hasFile('img')) {
             //Hapus gambar Lama
-            $img = Product::where('id',$id)->first();
-            if ($img->img <> "") {
-                unlink(public_path('img'). '/' .$img->img);
+            if ($product->img) {
+                unlink(public_path('img'). '/' .$product->avatar);
             }
-
-            //jika ingin ganti gambar
-            $file       = Request()->img;
-            $fileimg = $file->getClientOriginalName();
-            $file       ->move(public_path('img'),$fileimg);
-
-            Product::findOrFail($id)->update([
-                'umkm_id'        => $request->umkm_id,
-                'name'           => $request->name,
-                'description'    => $request->description,
-                'price'          => $request->price,
-                'stok'           => $request->stok,
-                'img'            => $fileimg,
-        ]);
-
-
-        } else {
-
-            //Jika tidak ingin mengganti icon
-            Product::findOrFail($id)->update([
-                'umkm_id'        => $request->umkm_id,
-                'name'           => $request->name,
-                'description'    => $request->description,
-                'price'          => $request->price,
-                'stok'           => $request->stok,
-                'img'            => $$request->img,
-            ]);
+            $filenameWithExt = $request->file('img')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('img')->getClientOriginalExtension();
+            $fileimgSimpan = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('img')->move(public_path('img'),$fileimgSimpan);
+        }else{
+            $fileimgSimpan = $product->img;
         }
+
+        Product::findOrFail($id)->update([
+                'umkm_id'        => $request->umkm_id,
+                'name'           => $request->name,
+                'description'    => $request->description,
+                'price'          => $request->price,
+                'stok'           => $request->stok,
+                'img'            => $fileimgSimpan,
+        ]);
 
         return response()->json(['message' => 'Data Berhasil di Update']);
     }

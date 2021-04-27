@@ -37,8 +37,8 @@ class BannerController extends Controller
     {
         $request->validate([
             'name'          => 'required',
-            'description'   => 'required',
-            'img'           => 'required',
+            'description'   => 'string|nullable',
+            'img'           => 'image|max:1024|nullable',
         ]);
 
         $file       = Request()->img;
@@ -107,8 +107,8 @@ class BannerController extends Controller
     {
         $request->validate([
             'name'          => 'required',
-            'description'   => 'required',
-            'img'           => 'required',
+            'description'   => 'string|nullable',
+            'img'           => 'image|max:1024|nullable',
         ]);
 
         if (Request()->img <> "") {
