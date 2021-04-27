@@ -44,6 +44,14 @@ class UmkmController extends Controller
             'background'    => 'required',
         ]);
 
+        $file       = Request()->avatar;
+        $fileavatar = $file->getClientOriginalName();
+        $file       ->move(public_path('avatar'),$fileavatar);
+
+        $file       = Request()->background;
+        $filebackground = $file->getClientOriginalName();
+        $file       ->move(public_path('background'),$filebackground);
+
         Umkm::create([
             'name'          => $request->name,
             'description'   => $request->description,
@@ -52,8 +60,8 @@ class UmkmController extends Controller
             'latitude'      => $request->latitude,
             'longitude'     => $request->longitude,
             'phone'         => $request->phone,
-            'avatar'        => $request->avatar,
-            'background'    => $request->background,
+            'avatar'        => $fileavatar,
+            'background'    => $filebackground,
         ]);
 
         return redirect('umkm')->with('status', 'Data Berhasil di Tambah');
@@ -65,9 +73,14 @@ class UmkmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function detail($id)
     {
-        //
+        $data = [
+            'title'  => 'Detail Data UMKM',
+            'title1' => 'UMKM',
+        ];
+        $umkm = Umkm::where('id',$id)->get();
+        return view('umkm.detail', compact('umkm'), $data);
     }
 
     /**
@@ -95,7 +108,12 @@ class UmkmController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'title'  => 'Edit Data Umkm',
+            'title1' => 'UMKM',
+        ];
+        $umkm = Umkm::where('id',$id)->first();
+        return view('umkm.edit', compact('umkm'), $data);
     }
 
     /**
@@ -107,7 +125,70 @@ class UmkmController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'          => 'required',
+            'description'   => 'required',
+            'region_id'     => 'required',
+            'address'       => 'required',
+            'latitude'      => 'required',
+            'longitude'     => 'required',
+            'phone'         => 'required',
+            'avatar'        => 'required',
+            'background'    => 'required',
+        ]);
+
+        if (Request()->avatar <> "") {
+            //Hapus gambar Lama
+            $umkm = Umkm::where('id',$id)->first();
+            if ($umkm->avatar <> "") {
+                unlink(public_path('avatar'). '/' .$umkm->avatar);
+            }
+        }
+        if (Request()->background <> "") {
+            //Hapus gambar Lama
+            $umkm = Umkm::where('id',$id)->first();
+            if ($umkm->avatar <> "") {
+                unlink(public_path('background'). '/' .$umkm->background);
+            }
+
+            //jika ingin ganti gambar
+            $file       = Request()->avatar;
+            $fileavatar = $file->getClientOriginalName();
+            $file       ->move(public_path('avatar'),$fileavatar);
+
+            $file       = Request()->background;
+            $filebackground = $file->getClientOriginalName();
+            $file       ->move(public_path('background'),$filebackground);
+
+            Umkm::findOrFail($id)->update([
+                'name'          => $request->name,
+                'description'   => $request->description,
+                'region_id'     => $request->region_id,
+                'address'       => $request->address,
+                'latitude'      => $request->latitude,
+                'longitude'     => $request->longitude,
+                'phone'         => $request->phone,
+                'avatar'        => $fileavatar,
+                'background'    => $filebackground,
+            ]);
+
+        } else {
+
+            //Jika tidak ingin mengganti icon
+            Umkm::findOrFail($id)->update([
+                'name'          => $request->name,
+                'description'   => $request->description,
+                'region_id'     => $request->region_id,
+                'address'       => $request->address,
+                'latitude'      => $request->latitude,
+                'longitude'     => $request->longitude,
+                'phone'         => $request->phone,
+                'avatar'        => $request->avatar,
+                'background'    => $request->background,
+            ]);
+        }
+
+        return redirect('umkm')->with('status', 'Data Berhasil di Update');
     }
 
     /**
@@ -118,6 +199,14 @@ class UmkmController extends Controller
      */
     public function destroy($id)
     {
+        $umkm = Umkm::where('id',$id)->first();
+
+        if ($umkm->avatar <> "") {
+            unlink(public_path('avatar'). '/' .$umkm->avatar);
+        }
+        if ($umkm->background <> "") {
+            unlink(public_path('background'). '/' .$umkm->background);
+        }
         Umkm::destroy($id);
         return redirect('umkm')->with('status', 'Data Berhasil di Hapus');
     }

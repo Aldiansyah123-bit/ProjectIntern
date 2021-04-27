@@ -13,6 +13,14 @@
 </div>
 @endsection
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="{{asset('select2/dist/css/select2.min.css')}}">
+
+<!-- Script -->
+<script src="{{asset('select2/jquery-3.4.1.js')}}" type="text/javascript"></script>
+<script src="{{asset('select2/dist/js/select2.min.js')}}" type="text/javascript"></script>
 <div class="col-md-12">
     <div class="card card-outline card-primary">
         <div class="card-header">
@@ -36,11 +44,8 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Region</label>
-                                <select name="region_id" class="form-control">
+                                <select id="regions" name="region_id" class="form-control">
                                     <option value="">--Name Region--</option>
-                                    @foreach ($region as $data)
-                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
-                                    @endforeach
                                 </select>
                                 <div class="text-danger">
                                     @error('region_id')
@@ -125,6 +130,35 @@
     </div>
 </div>
 
+<script type="text/javascript">
 
+    // CSRF Token
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $(document).ready(function(){
+
+      $( "#regions" ).select2({
+        ajax: {
+          url: "{{route('region.getRegion')}}",
+          type: "get",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              _token: CSRF_TOKEN,
+              search: params.term // search term
+            };
+          },
+          processResults: function (response) {
+            return {
+              results: response
+            };
+          },
+          cache: true
+        }
+
+      });
+
+    });
+    </script>
 
 @endsection

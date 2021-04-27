@@ -56,9 +56,18 @@
       <!-- Messages Dropdown Menu -->
 
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
+        <a class="nav-link" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+            <i class="fas fa-th-large"></i>
+                Logout
+            </a>
         </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+
       </li>
     </ul>
   </nav>
@@ -84,18 +93,42 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-                <a href="/bumdes" class="nav-link">
-                    <i class="nav-icon far fa-image"></i>
+                <a href="/home" class="nav-link {{request()->is('home')? 'active': ''}}">
+                    <i class="nav-icon fa fa-tachometer-alt"></i>
+                    <p>
+                        Dashboard
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/bumdes" class="nav-link {{request()->is('bumdes')? 'active': ''}}">
+                    <i class="nav-icon fa fa-home"></i>
                     <p>
                         BUMDES
                     </p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/umkm" class="nav-link">
-                    <i class="nav-icon far fa-image"></i>
+                <a href="/umkm" class="nav-link {{request()->is('umkm')? 'active': ''}}">
+                    <i class="nav-icon fa fa-shopping-cart"></i>
                     <p>
                         UMKM
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/product" class="nav-link {{request()->is('product')? 'active': ''}}">
+                    <i class="nav-icon fa fa-shopping-cart"></i>
+                    <p>
+                        PRODUCT
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/banner" class="nav-link {{request()->is('banner')? 'active': ''}}">
+                    <i class="nav-icon fa fa-camera"></i>
+                    <p>
+                        BANNER
                     </p>
                 </a>
             </li>
