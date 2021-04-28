@@ -4,14 +4,12 @@ namespace App\Http\Controllers\WEB;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Cart;
-use App\Bumdese;
-use App\Umkm;
+use App\Transaction;
 use App\User;
-use App\Cartdetail;
-use Illuminate\Support\Facades\Auth;
+use App\Umkm;
+use App\Bumdese;
 
-class CartController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,39 +19,54 @@ class CartController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Data Cart',
-            'title1'=> 'Cart',
+            'title' => 'Data Transaction',
+            'title1'=> 'Transaction'
         ];
-
-        $cart = Cart::all();
-        return view('cart.index',compact('cart'),$data);
+        $transaction = Transaction::all();
+        return view('transaction.index',compact('transaction'),$data);
     }
 
     public function detail($id)
     {
-        $cart       = Cart::where('id',$id)->get();
-        $cartdetails = Cartdetail::where('cart_id', $id)->get();
-        return view('cart.detail', compact('cart', 'cartdetails'));
+        $transaction       = Transaction::where('id',$id)->get();
+        return view('cart.detail', compact('transaction'));
     }
 
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create(Request $request)
     {
         $request->validate([
-            'user_id'       => 'required',
-            'umkm_id'       => 'required',
-            'bumdes_id'     => 'required',
-            'is_checkout'   => 'string|nullable',
+            'user_id'           => 'required',
+            'umkm_id'           => 'required',
+            'bumdes_id'         => 'required',
+            'invoice_number'    => 'required',
+            'address'           => 'required',
+            'total_price'       => 'required',
+            'discount'          => 'string|nullable',
+            'voucher'           => 'string|nullable',
+            'noted'             => 'string|nullable',
+            'status'            => 'required',
         ]);
 
-        Cart::create([
-            'user_id'       => $request->user_id,
-            'umkm_id'       => $request->umkm_id,
-            'bumdes_id'     => $request->bumdes_id,
-            'is_checkout'   => $request->is_checkout,
+        Transaction::create([
+                'user_id'           => $request->user_id,
+                'umkm_id'           => $request->umkm_id,
+                'bumdes_id'         => $request->bumdes_id,
+                'invoice_number'    => $request->invoice_number,
+                'address'           => $request->address,
+                $total = $request->total_price - ($request->total_price * $request->discount/100) - $request->voucher,
+                'total_price'       => $total,
+                'discount'          => $request->discount,
+                'voucher'           => $request->voucher,
+                'noted'             => $request->noted,
+                'status'            => $request->status,
         ]);
 
-        return redirect('/cart')->with('status', 'Data Berhasil di Tambah');
+        return redirect('/transaction')->with('status', 'Data Berhasil di Tambah');
     }
 
     public function getAddUser(Request $request)
@@ -148,6 +161,17 @@ class CartController extends Controller
         }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -156,10 +180,10 @@ class CartController extends Controller
     public function show()
     {
         $data = [
-            'title' => 'Tambah Data Cart',
-            'title1' => 'Cart'
+            'title' => 'Tambah Data Transaction',
+            'title1' => 'Transaction'
         ];
-        return view('cart.add',$data);
+        return view('transaction.add',$data);
     }
 
     /**
@@ -171,11 +195,11 @@ class CartController extends Controller
     public function edit($id)
     {
         $data = [
-            'title'  => 'Edit Data Cart',
-            'title1' => 'Cart',
+            'title'  => 'Edit Data Transaction',
+            'title1' => 'Transaction',
         ];
-        $cart = Cart::where('id',$id)->first();
-        return view('cart.edit', compact('cart'), $data);
+        $transaction = Transaction::where('id',$id)->first();
+        return view('transaction.edit', compact('transaction'), $data);
     }
 
     /**
@@ -187,21 +211,7 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'user_id'       => 'required',
-            'umkm_id'       => 'required',
-            'bumdes_id'     => 'required',
-            'is_checkout'   => 'string|nullable',
-        ]);
-
-        Cart::findOrFail($id)->update([
-            'user_id'       => $request->user_id,
-            'umkm_id'       => $request->umkm_id,
-            'bumdes_id'     => $request->bumdes_id,
-            'is_checkout'   => $request->is_checkout,
-        ]);
-
-        return redirect('cart')->with('status', 'Data Berhasil di Update');
+        //
     }
 
     /**
@@ -212,7 +222,7 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        Cart::destroy($id);
-        return redirect('cart')->with('status', 'Data Berhasil di Delete');
+        Transaction::destroy($id);
+        return redirect('transaction')->with('status', 'Data Berhasil di Delete');
     }
 }

@@ -21,20 +21,34 @@
 <!-- Script -->
 <script src="{{asset('select2/jquery-3.4.1.js')}}" type="text/javascript"></script>
 <script src="{{asset('select2/dist/js/select2.min.js')}}" type="text/javascript"></script>
+
 <div class="col-md-12">
     <div class="card card-outline card-primary">
         <div class="card-header">
             <h3 class="card-title">{{ $title }}</h3>
         </div>
-        <form action="/product/update/{{$product->id}}" method="POST" enctype="multipart/form-data">
+        <form action="/cart/update/{{$cart->id}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
+                            <label>User</label>
+                                <select id="users" name="user_id" class="form-control">
+                                    <option value="{{ $cart->user->name}}">--Name User--</option>
+                                </select>
+                                <div class="text-danger">
+                                    @error('user_id')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
                             <label>UMKM</label>
                                 <select id="umkms" name="umkm_id" class="form-control">
-                                    <option value="{{ $product->umkm->name}}">--Name Umkm--</option>
+                                    <option value="{{ $cart->umkm->name}}">--Name Umkm--</option>
                                 </select>
                                 <div class="text-danger">
                                     @error('umkm_id')
@@ -45,10 +59,12 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Name</label>
-                                <input name="name" class="form-control" value="{{ $product->name}}">
+                            <label>Bumdes</label>
+                                <select id="bumdes" name="bumdes_id" class="form-control">
+                                    <option value="{{ $cart->bumdes->name}}">--Name Bumdes--</option>
+                                </select>
                                 <div class="text-danger">
-                                    @error('name')
+                                    @error('bumdes_id')
                                         {{ $message }}
                                     @enderror
                                 </div>
@@ -56,59 +72,20 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Description</label>
-                                <input name="description" class="form-control" value="{{ $product->description}}">
+                            <label>Checkout</label>
+                                <input name="is_checkout" class="form-control" value="{{ $cart->is_checkout}}">
                                 <div class="text-danger">
-                                    @error('description')
+                                    @error('is_checkout')
                                         {{ $message }}
                                     @enderror
                                 </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Price</label>
-                                <input name="price" class="form-control" value="{{number_format($product->price)}}">
-                                <div class="text-danger">
-                                    @error('price')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Stok</label>
-                                <input name="stok" class="form-control" value="{{ $product->stok}}">
-                                <div class="text-danger">
-                                    @error('stok')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Image</label>
-                                <input type="file" name="img" class="form-control" accept="image/png">
-                            <div class="text-danger">
-                                @error('img')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-                    </div><br>
-                    <div class="col-sm-6">
-                        <label>Image</label>
-                        <div class="form-group">
-                                <img src="{{ asset('img')}}/{{ $product->img}}" width="300px">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Simpan</button>
-                <a href="/product" class="float-right btn btn-warning">Cancel</a>
+                <a href="/cart" class="float-right btn btn-warning">Cancel</a>
             </div>
         </form>
     </div>
@@ -116,14 +93,14 @@
 
 <script type="text/javascript">
 
-    // CSRF Token
+    // CSRF User
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $(document).ready(function(){
 
-      $( "#umkms" ).select2({
+      $( "#users" ).select2({
         ajax: {
-          url: "{{route('product.getProduct')}}",
-          type: "post",
+          url: "{{route('cart.getAddUser')}}",
+          type: "get",
           dataType: 'json',
           delay: 250,
           data: function (params) {
@@ -143,6 +120,63 @@
       });
 
     });
+
+    // CSRF Umkm
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $(document).ready(function(){
+
+      $( "#umkms" ).select2({
+        ajax: {
+          url: "{{route('cart.getAddUmkm')}}",
+          type: "get",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              _token: CSRF_TOKEN,
+              search: params.term // search term
+            };
+          },
+          processResults: function (response) {
+            return {
+              results: response
+            };
+          },
+          cache: true
+        }
+
+      });
+
+    });
+
+    // CSRF Bumdes
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $(document).ready(function(){
+
+      $( "#bumdes" ).select2({
+        ajax: {
+          url: "{{route('cart.getAddBumdes')}}",
+          type: "get",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              _token: CSRF_TOKEN,
+              search: params.term // search term
+            };
+          },
+          processResults: function (response) {
+            return {
+              results: response
+            };
+          },
+          cache: true
+        }
+
+      });
+
+    });
+
 </script>
 
 @endsection

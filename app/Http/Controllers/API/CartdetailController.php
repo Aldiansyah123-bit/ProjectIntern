@@ -48,6 +48,7 @@ class CartdetailController extends Controller
 
     public function update(Request $request, $id)
     {
+        $cartdetail = Cartdetail::where('id',$id)->first();
         $request->validate([
             'cart_id'   => 'required',
             'product_id'=> 'required',
@@ -59,7 +60,7 @@ class CartdetailController extends Controller
                 'cart_id'   => $request->cart_id,
                 'product_id'=> $request->product_id,
                 'amount'    => $request->amount,
-                'flag'      => $request->flag,
+                'flag'      => $request->flag ?? $cartdetail->flag,
         ]);
 
         return response()->json(['message' => 'Data was Successfully Updated']);

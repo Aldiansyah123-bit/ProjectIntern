@@ -105,8 +105,7 @@ class ProductController extends Controller
     public function detail($id)
     {
         $data = [
-            'title'  => 'Detail Data Product',
-            'title1' => 'Product',
+            'title1'  => 'Detail Product',
         ];
         $product = Product::where('id',$id)->get();
         return view('product.detail', compact('product'), $data);
@@ -155,19 +154,19 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'umkm_id'       => 'required|string',
+            'umkm_id'       => 'required',
             'name'          => 'required|string',
             'description'   => 'string|nullable',
             'price'         => 'required',
             'stok'          => 'required',
-            'img'           => 'image|max:1024|nullable',
+            'img'           => 'image|max:2000|nullable',
         ]);
 
         $product = Product::where('id',$id)->first();
         if ($request->hasFile('img')) {
             //Hapus gambar Lama
             if ($product->img) {
-                unlink(public_path('img'). '/' .$product->avatar);
+                unlink(public_path('img'). '/' .$product->img);
             }
             $filenameWithExt = $request->file('img')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);

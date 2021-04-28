@@ -13,60 +13,44 @@
 </div>
 @endsection
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <div class="col-md-12">
-            <div class="card card-outline card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">{{$title }}</h3>
 
-                    <div class="card-tools">
-                        <a href="/product" type="button" class="btn btn-secondary btn-sm btn-flat">
-                            <i class="fa fa-undo"></i>Back
-                        </a>
-                      </div>
-                <!-- /.card-tools -->
+<div class="card card-solid">
+    <div class="card-body">
+        <div class="row">
+            @foreach ($product as $item)
+            <div class="col-12 col-sm-6">
+                <div class="col-12">
+                <img src="{{ asset('img') }}/{{ $item->img }}" class="product-image" alt="Product Image">
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h5><i class="icon fas fa-check"></i> {{session('status')}}</h5>
-                        </div>
-                    @endif
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th width="30px" class="text-center">No</th>
-                                    <th>UMKM</th>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Price</th>
-                                    <th>Stok</th>
-                                    <th>Image</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $no=1; ?>
-                                @foreach ($product as $item)
-                                    <tr>
-                                        <td class="text-center">{{ $no++ }}</td>
-                                        <td>{{ $item->umkm->name }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->description }}</td>
-                                        <td>{{ $item->price }}</td>
-                                        <td>{{ $item->stok }}</td>
-                                        <td class="text-center"><img src="{{ asset('img') }}/{{ $item->img }}" width="100px"></td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                </div>
-                <!-- /.card-body -->
             </div>
-         <!-- /.card -->
+            <div class="col-12 col-sm-6">
+                <h3 class="my-3">{{ $item->name }}</h3>
+                    <p>{{ $item->description }}</p>
+                <hr>
+                    <h4>{{ $item->umkm->name }}</h4>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <b class="text-red">
+                        Stok : {{ $item->price }}
+                    </b>
+                </div>
+                    <div class="bg-gray py-2 px-3 mt-4">
+                        <h2 class="mb-0">
+                            Rp. {{number_format($item->price)}}
+                        </h2>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="/product" type="button" class="btn btn-warning btn-lg btn-flat">
+                            <i class="fas fa-undo fa-lg mr-2"></i>
+                            Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
+    </div>
+</div>
 
         <script>
             $(function () {

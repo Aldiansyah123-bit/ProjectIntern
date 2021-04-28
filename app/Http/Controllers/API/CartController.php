@@ -144,6 +144,7 @@ class CartController extends Controller
 
     public function update(Request $request, $id)
     {
+        $cart = Cart::where('id',$id)->first();
         $request->validate([
             'user_id'       => 'required',
             'umkm_id'       => 'required',
@@ -155,7 +156,7 @@ class CartController extends Controller
             'user_id'       => $request->user_id,
             'umkm_id'       => $request->umkm_id,
             'bumdes_id'     => $request->bumdes_id,
-            'is_checkout'   => $request->is_checkout,
+            'is_checkout'   => $request->is_checkout ?? $cart->is_checkout,
         ]);
 
         return response()->json(['message' => 'Data was Successfully Updated']);

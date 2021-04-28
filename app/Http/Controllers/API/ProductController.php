@@ -68,7 +68,7 @@ class ProductController extends Controller
             'description'   => 'string|nullable',
             'price'         => 'required',
             'stok'          => 'required',
-            'img'           => 'image|max:1024|nullable',
+            'img'           => 'image|max:2000|nullable',
         ]);
 
         if($request->hasFile('img')){
@@ -104,14 +104,14 @@ class ProductController extends Controller
             'description'   => 'required',
             'price'         => 'required',
             'stok'          => 'required',
-            'img'           => 'file|size:1024',
+            'img'           => 'image|max:2000|nullable',
         ]);
 
         $product = Product::where('id',$id)->first();
         if ($request->hasFile('img')) {
             //Hapus gambar Lama
             if ($product->img) {
-                unlink(public_path('img'). '/' .$product->avatar);
+                unlink(public_path('img'). '/' .$product->img);
             }
             $filenameWithExt = $request->file('img')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -139,7 +139,7 @@ class ProductController extends Controller
     {
         $product = Product::where('id',$id)->first();
 
-        if ($product->img <> "") {
+        if ($product->img <> " ") {
             unlink(public_path('img'). '/' .$product->img);
         }
 

@@ -98,8 +98,7 @@ class BumdeseController extends Controller
     public function detail($id)
     {
         $data = [
-            'title'  => 'Detail Data UMKM',
-            'title1' => 'UMKM',
+            'title1'  => 'BUMDES',
         ];
         $bumdes = Bumdese::where('id',$id)->get();
         return view('bumdes.detail', compact('bumdes'), $data);

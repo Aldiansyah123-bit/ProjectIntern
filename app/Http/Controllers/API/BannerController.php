@@ -24,17 +24,26 @@ class BannerController extends Controller
         $request->validate([
             'name'          => 'string|nullable',
             'description'   => 'string|nullable',
-            'img'           => 'image|max:1024|nullable',
+            'img'           => 'required|image|max:2000',
         ]);
 
-        $file       = Request()->img;
-        $fileimg    = $file->getClientOriginalName();
-        $file       ->move(public_path('img'),$fileimg);
+        if($request->hasFile('img')){
+            // ada file yang diupload
+            $filenameWithExt = $request->file('img')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('img')->getClientOriginalExtension();
+            $fileimgSimpan = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('img')->move(public_path('img'),$fileimgSimpan);
+
+        }else{
+            // tidak ada file yang diupload
+            $fileimgSimpan =  null;
+        }
 
         Banner::create([
                 'name'           => $request->name,
                 'description'    => $request->description,
-                'img'            => $fileimg,
+                'img'            => $fileimgSimpan,
         ]);
 
         return response()->json(['message' => 'Data Berhasil di Tambah']);
@@ -45,37 +54,30 @@ class BannerController extends Controller
         $request->validate([
             'name'          => 'string|nullable',
             'description'   => 'string|nullable',
-            'img'           => 'image|max:1024|nullable',
+            'img'           => 'required|image|max:2000',
         ]);
 
-        if (Request()->img <> "") {
+        $banner = Banner::where('id',$id)->first();
+        if ($request->hasFile('img')) {
             //Hapus gambar Lama
-            $img = Banner::where('id',$id)->first();
-            if ($img->img <> "") {
-                unlink(public_path('img'). '/' .$img->img);
+            if ($banner->img) {
+                unlink(public_path('img'). '/' .$banner->img);
             }
-
-            //jika ingin ganti gambar
-            $file       = Request()->img;
-            $fileimg = $file->getClientOriginalName();
-            $file       ->move(public_path('img'),$fileimg);
-
-            Banner::findOrFail($id)->update([
-                'name'           => $request->name,
-                'description'    => $request->description,
-                'img'            => $fileimg,
-        ]);
-
-
-        } else {
-
-            //Jika tidak ingin mengganti icon
-            Banner::findOrFail($id)->update([
-                'name'           => $request->name,
-                'description'    => $request->description,
-                'img'            => $$request->img,
-            ]);
+            $filenameWithExt = $request->file('img')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('img')->getClientOriginalExtension();
+            $fileimgSimpan = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('img')->move(public_path('img'),$fileimgSimpan);
+        }else{
+            $fileimgSimpan = $banner->img;
         }
+
+
+        Banner::findOrFail($id)->update([
+            'name'           => $request->name ?? $banner->name,
+            'description'    => $request->description ?? $banner->description,
+            'img'            => $fileimgSimpan,
+        ]);
 
         return response()->json(['message' => 'Data Berhasil di Update']);
     }

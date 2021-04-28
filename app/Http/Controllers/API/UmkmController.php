@@ -41,17 +41,35 @@ class UmkmController extends Controller
             'latitude'      => 'required',
             'longitude'     => 'required',
             'phone'         => 'required',
-            'avatar'        => 'file|size:2000',
-            'background'    => 'file|size:2000',
+            'avatar'        => 'image|max:2000|nullable',
+            'background'    => 'image|max:2000|nullable',
         ]);
 
-        $file       = Request()->avatar;
-        $fileavatar = $file->getClientOriginalName();
-        $file       ->move(public_path('avatar'),$fileavatar);
+        if($request->hasFile('avatar')){
+            // ada file yang diupload
+            $filenameWithExt = $request->file('avatar')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('avatar')->getClientOriginalExtension();
+            $fileavatarSimpan = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('avatar')->move(public_path('avatar'),$fileavatarSimpan);
 
-        $file       = Request()->background;
-        $filebackground = $file->getClientOriginalName();
-        $file       ->move(public_path('background'),$filebackground);
+        }else{
+            // tidak ada file yang diupload
+            $fileavatarSimpan =  null;
+        }
+
+        if($request->hasFile('background')){
+            // ada file yang diupload
+            $filenameWithExt = $request->file('background')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('background')->getClientOriginalExtension();
+            $filebackgroundSimpan = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('background')->move(public_path('background'),$filebackgroundSimpan);
+
+        }else{
+            // tidak ada file yang diupload
+            $filebackgroundSimpan = null;
+        }
 
         Umkm::create([
             'name'          => $request->name,
@@ -61,8 +79,8 @@ class UmkmController extends Controller
             'latitude'      => $request->latitude,
             'longitude'     => $request->longitude,
             'phone'         => $request->phone,
-            'avatar'        => $fileavatar,
-            'background'    => $filebackground,
+            'avatar'        => $fileavatarSimpan,
+            'background'    => $filebackgroundSimpan,
         ]);
 
         return response()->json(['message' => 'Data Berhasil di Tambah']);

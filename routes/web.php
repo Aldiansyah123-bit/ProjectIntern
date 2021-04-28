@@ -69,5 +69,17 @@ Route::get('/cart/edit/{id}', 'WEB\CartController@edit');
 Route::post('/cart/update/{id}', 'WEB\CartController@update');
 Route::get('/cart/delete/{id}', 'WEB\CartController@destroy');
 
+//Transaction
+Route::get('/transaction', 'WEB\TransactionController@index');
+Route::get('/transaction/add', 'WEB\TransactionController@show');
+Route::get('/transaction/detail/{id}', 'WEB\TransactionController@detail');
+Route::get('/transaction/getAddUs', 'WEB\TransactionController@getAddUser')->name('transaction.getAddUser');
+Route::get('/transaction/getAddU', 'WEB\TransactionController@getAddUmkm')->name('transaction.getAddUmkm');
+Route::get('/transaction/getAddB', 'WEB\TransactionController@getAddBumdes')->name('transaction.getAddBumdes');
+Route::post('/transaction/create', 'WEB\TransactionController@create');
+Route::get('/transaction/edit/{id}', 'WEB\TransactionController@edit');
+Route::post('/transaction/update/{id}', 'WEB\TransactionController@update');
+Route::get('/transaction/delete/{id}', 'WEB\TransactionController@destroy');
+
 //Region
 Route::get('region/getregion', 'WEB\RegionController@getRegion')->name('region.getRegion');
