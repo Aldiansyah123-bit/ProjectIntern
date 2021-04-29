@@ -14,11 +14,6 @@ class BumdesController extends Controller
         $this->middleware('auth:api');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $bumdes = Bumdese::all();
@@ -36,11 +31,6 @@ class BumdesController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request)
     {
         $request->validate([
@@ -50,8 +40,8 @@ class BumdesController extends Controller
             'latitude'   => 'required',
             'longitude'  => 'required',
             'phone'      => 'required',
-            'avatar'     => 'image|max:1024|nullable',
-            'background' => 'image|max:1024|nullable',
+            'avatar'     => 'image|max:2000|nullable',
+            'background' => 'image|max:2000|nullable',
         ]);
 
         if($request->hasFile('avatar')){
@@ -94,46 +84,6 @@ class BumdesController extends Controller
         return response()->json(['message' => 'Data Berhasil di Tambah']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -143,8 +93,8 @@ class BumdesController extends Controller
             'latitude'   => 'required',
             'longitude'  => 'required',
             'phone'      => 'required',
-            'avatar'     => 'image|max:1024|nullable',
-            'background' => 'image|max:1024|nullable',
+            'avatar'     => 'image|max:2000|nullable',
+            'background' => 'image|max:2000|nullable',
         ]);
 
         $bumdes = Bumdese::where('id',$id)->first();
@@ -191,12 +141,6 @@ class BumdesController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $bumdes = Bumdese::where('id',$id)->first();

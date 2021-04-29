@@ -67,5 +67,29 @@ Route::post('/banner/update/{id}', 'WEB\BannerController@update');
 Route::post('/banner/create', 'WEB\BannerController@create');
 Route::get('/banner/delete/{id}', 'WEB\BannerController@destroy');
 
+//Cart
+Route::get('/cart', 'WEB\CartController@index');
+Route::get('/cart/add', 'WEB\CartController@show');
+Route::get('/cart/detail/{id}', 'WEB\CartController@detail');
+Route::get('/cart/getAddUs', 'WEB\CartController@getAddUser')->name('cart.getAddUser');
+Route::get('/cart/getAddU', 'WEB\CartController@getAddUmkm')->name('cart.getAddUmkm');
+Route::get('/cart/getAddB', 'WEB\CartController@getAddBumdes')->name('cart.getAddBumdes');
+Route::post('/cart/create', 'WEB\CartController@create');
+Route::get('/cart/edit/{id}', 'WEB\CartController@edit');
+Route::post('/cart/update/{id}', 'WEB\CartController@update');
+Route::get('/cart/delete/{id}', 'WEB\CartController@destroy');
+
+//Transaction
+Route::get('/transaction', 'WEB\TransactionController@index');
+Route::get('/transaction/add', 'WEB\TransactionController@show');
+Route::get('/transaction/detail/{id}', 'WEB\TransactionController@detail');
+Route::get('/transaction/getAddUs', 'WEB\TransactionController@getAddUser')->name('transaction.getAddUser');
+Route::get('/transaction/getAddU', 'WEB\TransactionController@getAddUmkm')->name('transaction.getAddUmkm');
+Route::get('/transaction/getAddB', 'WEB\TransactionController@getAddBumdes')->name('transaction.getAddBumdes');
+Route::post('/transaction/create', 'WEB\TransactionController@create');
+Route::get('/transaction/edit/{id}', 'WEB\TransactionController@edit');
+Route::post('/transaction/update/{id}', 'WEB\TransactionController@update');
+Route::get('/transaction/delete/{id}', 'WEB\TransactionController@destroy');
+
 //Region
 Route::get('region/getregion', 'WEB\RegionController@getRegion')->name('region.getRegion');

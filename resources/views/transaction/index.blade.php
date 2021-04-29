@@ -21,7 +21,7 @@
                     <h3 class="card-title">{{$title }}</h3>
 
                     <div class="card-tools">
-                        <a href="product/add" type="button" class="btn btn-primary btn-sm btn-flat">
+                        <a href="transaction/add" type="button" class="btn btn-primary btn-sm btn-flat">
                             <i class="fa fa-plus"></i>Add
                         </a>
                       </div>
@@ -39,25 +39,25 @@
                             <thead>
                                 <tr>
                                     <th width="30px" class="text-center">No</th>
-                                    <th>Name</th>
-                                    <th>UMKM</th>
-                                    <th>Description</th>
-                                    <th>Price</th>
+                                    <th>User</th>
+                                    <th>Incoice Number</th>
+                                    <th>Address</th>
+                                    <th>Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $no=1; ?>
-                                @foreach ($product as $item)
+                                @foreach ($transaction as $item)
                                     <tr>
                                         <td class="text-center">{{ $no++ }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->umkm->name }}</td>
-                                        <td>{{ $item->description }}</td>
-                                        <td>Rp. {{number_format($item->price)}}</td>
+                                        <td>{{ $item->user->name }}</td>
+                                        <td>{{ $item->invoice_number }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->status }}</td>
                                         <td class="text-center">
-                                            <a href="/product/detail/{{ $item->id}}" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-eye"></i></a>
-                                            <a href="/product/edit/{{ $item->id}}" class="btn btn-sm btn-flat btn-warning"><i class="fa fa-edit"></i></a>
+                                            <a href="/transaction/detail/{{ $item->id}}" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="/transaction/edit/{{ $item->id}}" class="btn btn-sm btn-flat btn-warning"><i class="fa fa-edit"></i></a>
                                             <button class="btn btn-sm btn-flat btn-danger" data-toggle="modal" data-target="#delete{{ $item->id}}"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
@@ -70,12 +70,12 @@
          <!-- /.card -->
         </div>
 
-        @foreach ($product as $item)
+        @foreach ($transaction as $item)
         <div class="modal fade" id="delete{{ $item->id}}">
             <div class="modal-dialog">
                 <div class="modal-content bg-danger">
                     <div class="modal-header">
-                        <h4 class="modal-title">{{ $item->name}}</h4>
+                        <h4 class="modal-title">{{ $item->user->name}}</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-light" data-dismiss="modal">No</button>
-                        <a href="/product/delete/{{ $item->id}}" type="button" class="btn btn-outline-light">Yes</a>
+                        <a href="/transaction/delete/{{ $item->id}}" type="button" class="btn btn-outline-light">Yes</a>
                     </div>
                 </div>
               <!-- /.modal-content -->

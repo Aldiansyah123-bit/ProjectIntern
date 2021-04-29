@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
+use App\Umkm;
 
 class ProductController extends Controller
 {
@@ -14,15 +15,40 @@ class ProductController extends Controller
         $this->middleware('auth:api');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $product = Product::all();
         return response()->json(['Product' => $product]);
+    }
+
+    public function getProduct(Request $request)
+    {
+
+        $search = $request->search;
+
+        if($search == ''){
+            $umkm = Umkm::orderby('name','asc')
+                        ->select('id','name')
+                        ->limit(8)
+                        ->get();
+        }else{
+            $umkm = Umkm::orderby('name','asc')
+                        ->select('id','name')
+                        ->where('name', 'like', '%' .$search . '%')
+                        ->limit(8)
+                        ->get();
+        }
+
+        $response = array();
+        foreach($umkm as $umkms){
+            $response[] = array(
+                "id"      =>$umkms->id,
+                "text"    =>$umkms->name
+            );
+        }
+
+        return response()->json($response);
     }
 
     public function detail($id)
@@ -34,11 +60,6 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request)
     {
         $request->validate([
@@ -47,7 +68,7 @@ class ProductController extends Controller
             'description'   => 'string|nullable',
             'price'         => 'required',
             'stok'          => 'required',
-            'img'           => 'image|max:1024|nullable',
+            'img'           => 'image|max:2000|nullable',
         ]);
 
         if($request->hasFile('img')){
@@ -75,46 +96,6 @@ class ProductController extends Controller
         return response()->json(['message' => 'Data Berhasil di Tambah']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -123,14 +104,14 @@ class ProductController extends Controller
             'description'   => 'required',
             'price'         => 'required',
             'stok'          => 'required',
-            'img'           => 'file|size:1024',
+            'img'           => 'image|max:2000|nullable',
         ]);
 
         $product = Product::where('id',$id)->first();
         if ($request->hasFile('img')) {
             //Hapus gambar Lama
             if ($product->img) {
-                unlink(public_path('img'). '/' .$product->avatar);
+                unlink(public_path('img'). '/' .$product->img);
             }
             $filenameWithExt = $request->file('img')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -153,17 +134,12 @@ class ProductController extends Controller
         return response()->json(['message' => 'Data Berhasil di Update']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $product = Product::where('id',$id)->first();
 
-        if ($product->img <> "") {
+        if ($product->img <> " ") {
             unlink(public_path('img'). '/' .$product->img);
         }
 

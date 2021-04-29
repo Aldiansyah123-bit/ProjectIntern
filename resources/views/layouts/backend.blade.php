@@ -132,6 +132,22 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="/cart" class="nav-link {{request()->is('cart')? 'active': ''}}">
+                    <i class="nav-icon fa fa-shopping-cart"></i>
+                    <p>
+                        Cart
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/transaction" class="nav-link {{request()->is('transaction')? 'active': ''}}">
+                    <i class="nav-icon fa fa-credit-card"></i>
+                    <p>
+                        Transactions
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
