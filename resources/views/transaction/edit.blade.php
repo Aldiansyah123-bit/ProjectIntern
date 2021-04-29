@@ -27,7 +27,7 @@
         <div class="card-header">
             <h3 class="card-title">{{ $title }}</h3>
         </div>
-        <form action="/cart/update/{{$cart->id}}" method="POST" enctype="multipart/form-data">
+        <form action="/transaction/update/{{$transaction->id}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="row">
@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label>User</label>
                                 <select id="users" name="user_id" class="form-control">
-                                    <option value="{{ $cart->user->name}}">--Name User--</option>
+                                    <option value="{{ $transaction->user->name}}">--Name User--</option>
                                 </select>
                                 <div class="text-danger">
                                     @error('user_id')
@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <label>UMKM</label>
                                 <select id="umkms" name="umkm_id" class="form-control">
-                                    <option value="{{ $cart->umkm->name}}">--Name Umkm--</option>
+                                    <option value="{{ $transaction->umkm->name}}">--Name Umkm--</option>
                                 </select>
                                 <div class="text-danger">
                                     @error('umkm_id')
@@ -61,7 +61,7 @@
                         <div class="form-group">
                             <label>Bumdes</label>
                                 <select id="bumdes" name="bumdes_id" class="form-control">
-                                    <option value="{{ $cart->bumdes->name}}">--Name Bumdes--</option>
+                                    <option value="{{ $transaction->bumdes->name}}">--Name Bumdes--</option>
                                 </select>
                                 <div class="text-danger">
                                     @error('bumdes_id')
@@ -72,20 +72,87 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Checkout</label>
-                                <input name="is_checkout" class="form-control" value="{{ $cart->is_checkout}}">
+                            <label>Invoice Number</label>
+                                <input name="invoice_number" class="form-control" value="{{ $transaction->invoice_number}}">
                                 <div class="text-danger">
-                                    @error('is_checkout')
+                                    @error('invoice_number')
                                         {{ $message }}
                                     @enderror
                                 </div>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Address</label>
+                                <input name="address" class="form-control" value="{{ $transaction->address}}">
+                                <div class="text-danger">
+                                    @error('address')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Total Price</label>
+                                <input name="total_price" class="form-control" value="{{ $transaction->total_price}}">
+                                <div class="text-danger">
+                                    @error('total_price')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Descount</label>
+                                <input name="discount" class="form-control" value="{{ $transaction->discount}}">
+                                <div class="text-danger">
+                                    @error('discount')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Voucher</label>
+                                <input name="voucher" class="form-control" value="{{ $transaction->voucher}}">
+                                <div class="text-danger">
+                                    @error('voucher')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Noted</label>
+                                <input name="noted" class="form-control" value="{{ $transaction->noted}}">
+                                <div class="text-danger">
+                                    @error('noted')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Status</label>
+                                <input name="status" class="form-control" value="{{ $transaction->status}}">
+                                <div class="text-danger">
+                                    @error('status')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Simpan</button>
-                <a href="/cart" class="float-right btn btn-warning">Cancel</a>
+                <a href="/transaction" class="float-right btn btn-warning">Cancel</a>
             </div>
         </form>
     </div>

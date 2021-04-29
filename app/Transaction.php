@@ -17,11 +17,17 @@ class Transaction extends Model
 
     public function umkm()
     {
-        return $this->hasMany('App\Umkm');
+        return $this->belongsTo('App\Umkm');
     }
 
     public function bumdes()
     {
-        return $this->hasMany('App\Bumdese');
+        return $this->belongsTo('App\Bumdese');
+    }
+
+
+    public function transactiondetails()
+    {
+        return $this->hasMany('App\TransactionDetail');
     }
 }

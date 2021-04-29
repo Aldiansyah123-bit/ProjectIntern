@@ -148,6 +148,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="/transdel" class="nav-link {{request()->is('transdel')? 'active': ''}}">
+                    <i class="nav-icon fa fa-credit-card"></i>
+                    <p>
+                        Transactions Detail
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

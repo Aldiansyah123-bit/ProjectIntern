@@ -9,6 +9,11 @@ use App\Umkm;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -154,7 +159,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'umkm_id'       => 'required',
+            'umkm_id'       => 'required|integer',
             'name'          => 'required|string',
             'description'   => 'string|nullable',
             'price'         => 'required',

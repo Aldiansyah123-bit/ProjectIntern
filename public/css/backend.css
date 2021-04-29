@@ -1,0 +1,28 @@
+.bodylogin {
+    background: #E5E5E5;
+}
+
+.bodyimg{
+    position: absolute;
+    width: 678px;
+    height: 687px;
+    left: 639px;
+    top: 168px;
+    background: #E61733D4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.formback{
+    position: absolute;
+width: 433px;
+height: 307px;
+left: 735px;
+top: 332px;
+
+background: #FFFFFF;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 3px 3px 0px 0px;
+
+}
+
+

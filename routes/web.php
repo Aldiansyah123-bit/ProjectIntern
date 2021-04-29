@@ -81,5 +81,16 @@ Route::get('/transaction/edit/{id}', 'WEB\TransactionController@edit');
 Route::post('/transaction/update/{id}', 'WEB\TransactionController@update');
 Route::get('/transaction/delete/{id}', 'WEB\TransactionController@destroy');
 
+//Transaction Detail
+Route::get('/transdel', 'WEB\TransactiondetailController@index');
+Route::get('/transdel/add', 'WEB\TransactiondetailController@store');
+Route::get('/transdel/detail/{id}', 'WEB\TransactiondetailController@show');
+Route::get('/transdel/getTransaction', 'WEB\TransactiondetailController@getTransaction')->name('transdel.getTransaction');
+Route::get('/transdel/getProduct', 'WEB\TransactiondetailController@getProduct')->name('transdel.getProduct');
+Route::post('/transdel/create', 'WEB\TransactiondetailController@create');
+Route::get('/transdel/edit/{id}', 'WEB\TransactiondetailController@edit');
+Route::post('/transdel/update/{id}', 'WEB\TransactiondetailController@update');
+Route::get('/transdel/delete/{id}', 'WEB\TransactiondetailController@destroy');
+
 //Region
 Route::get('region/getregion', 'WEB\RegionController@getRegion')->name('region.getRegion');

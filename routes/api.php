@@ -69,3 +69,13 @@ Route::post('/cartdetail/create', 'API\CartdetailController@create');
 Route::get('/cartdetail/show/{id}', 'API\CartdetailController@show');
 Route::post('/cartdetail/update/{id}', 'API\CartdetailController@update');
 Route::delete('/cartdetail/delete/{id}', 'API\CartdetailController@destroy');
+
+//Transaction
+Route::get('/transaction', 'API\TransactionController@index');
+Route::get('/transaction/show/{id}', 'API\TransactionController@show');
+Route::post('/transaction/create', 'API\TransactionController@create');
+Route::post('/transaction/update/{id}', 'API\TransactionController@update');
+Route::delete('/transaction/delete/{id}', 'API\TransactionController@destroy');
+Route::get('/transaction/getAddUs', 'API\TransactionController@getAddUser');
+Route::get('/transaction/getAddU', 'API\TransactionController@getAddUmkm');
+Route::get('/transaction/getAddB', 'API\TransactionController@getAddBumdes');

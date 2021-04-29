@@ -21,23 +21,24 @@
 <!-- Script -->
 <script src="{{asset('select2/jquery-3.4.1.js')}}" type="text/javascript"></script>
 <script src="{{asset('select2/dist/js/select2.min.js')}}" type="text/javascript"></script>
+
 <div class="col-md-12">
     <div class="card card-outline card-primary">
         <div class="card-header">
             <h3 class="card-title">{{ $title }}</h3>
         </div>
-        <form action="/product/create" method="POST" enctype="multipart/form-data">
+        <form action="/transdel/update/{{$transdel->id}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>UMKM</label>
-                                <select id="umkms" name="umkm_id" class="form-control">
-                                    <option value="">--Name Umkm--</option>
+                            <label>Number Transaction</label>
+                                <select id="transaction" name="transaction_id" class="form-control">
+                                    <option value="{{ $transdel->transaction->id}}">--Name Umkm--</option>
                                 </select>
                                 <div class="text-danger">
-                                    @error('umkm_id')
+                                    @error('transaction_id')
                                         {{ $message }}
                                     @enderror
                                 </div>
@@ -45,21 +46,12 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Name</label>
-                                <input name="name" class="form-control" placeholder="name">
+                            <label>Product</label>
+                                <select id="products" name="product_id" class="form-control">
+                                    <option value="{{ $transdel->product->name}}">--Name Bumdes--</option>
+                                </select>
                                 <div class="text-danger">
-                                    @error('name')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Description</label>
-                                <input name="description" class="form-control" placeholder="Description">
-                                <div class="text-danger">
-                                    @error('description')
+                                    @error('product_id')
                                         {{ $message }}
                                     @enderror
                                 </div>
@@ -68,7 +60,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Price</label>
-                                <input name="price" class="form-control" placeholder="Price">
+                                <input name="price" class="form-control" value="{{ $transdel->price}}">
                                 <div class="text-danger">
                                     @error('price')
                                         {{ $message }}
@@ -78,31 +70,32 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Stok</label>
-                                <input name="stok" class="form-control" placeholder="Stok">
+                            <label>Amount</label>
+                                <input name="amount" class="form-control" value="{{ $transdel->amount}}">
                                 <div class="text-danger">
-                                    @error('stok')
+                                    @error('amount')
                                         {{ $message }}
                                     @enderror
                                 </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
-                            <label>Img</label>
-                                <input type="file" name="img" class="form-control" accept="image/png/jpg">
-                            <div class="text-danger">
-                                @error('img')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                            <label>Flag</label>
+                                <input name="flag" class="form-control" value="{{ $transdel->flag}}">
+                                <div class="text-danger">
+                                    @error('flag')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Simpan</button>
-                <a href="/product" class="float-right btn btn-warning">Cancel</a>
+                <a href="/transdel" class="float-right btn btn-warning">Cancel</a>
             </div>
         </form>
     </div>
@@ -110,14 +103,14 @@
 
 <script type="text/javascript">
 
-    // CSRF Token
+    // CSRF User
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $(document).ready(function(){
 
-      $( "#umkms" ).select2({
+      $( "#transaction" ).select2({
         ajax: {
-          url: "{{route('product.getProduct')}}",
-          type: "post",
+          url: "{{route('transdel.getTransaction')}}",
+          type: "get",
           dataType: 'json',
           delay: 250,
           data: function (params) {
@@ -137,6 +130,35 @@
       });
 
     });
-    </script>
+
+    // CSRF Product
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $(document).ready(function(){
+
+      $( "#products" ).select2({
+        ajax: {
+          url: "{{route('transdel.getProduct')}}",
+          type: "get",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              _token: CSRF_TOKEN,
+              search: params.term // search term
+            };
+          },
+          processResults: function (response) {
+            return {
+              results: response
+            };
+          },
+          cache: true
+        }
+
+      });
+
+    });
+
+</script>
 
 @endsection
