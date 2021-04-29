@@ -7,14 +7,56 @@
     <title>Login</title>
     <link rel="stylesheet" href="{{ asset('css/backend.css') }}">
 </head>
-<body class="bodylogin">
-    <div class="bodyimg">
-        <div class="formback">
+<body>
+    <div class="boxlogin">
+        <div class="boxlogin1">
+            <div class="logo">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                      <div class="input-group mb-8">
+                        <input id="email" type="email" name="email" class="form-email @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email">
+                        <span class="divuser"></span>
+                        @error('email')
+                            <span class="invalid-email" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                      </div>
+                      <div class="input-group mb-3">
+                        <input id="password" type="password" name="password" class="form-password @error('password') is-invalid @enderror" placeholder="Password">
+                        <span class="divlock"></span>
+                        @error('password')
+                            <span class="invalid-password" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                      </div>
+                          <div class="divremember">
+                                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <label>
+                                Ingat Saya
+                                </label>
+                          </div>
+                            @if (Route::has('password.request'))
+                                <a class="buttonlink" href="{{ route('password.request') }}">Lupa Password</a>
+                            @endif
+                          <button type="submit" class="button">Sign In</button>
+                    </form>
 
+                    @if (Route::has('password.request'))
+                        <a class="buttonlink" href="{{ route('password.request') }}">Lupa Password</a>
+                    @endif
+                    <p class="linktextakun">Belum Punya Akun?</p>
+                        @if (Route::has('register'))
+                            <a class="linkregis" href="{{ route('register') }}">"Daftar"</a>
+                        @endif
+
+                    <div class="box1">
+                </div>
+
+            </div>
         </div>
-
     </div>
-
 </body>
 </html>
 
