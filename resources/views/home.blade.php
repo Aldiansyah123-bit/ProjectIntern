@@ -1,4 +1,4 @@
-@extends('layouts.backend')
+@extends('layouts.base')
 
 @section('judul1')
 <div class="content-header">

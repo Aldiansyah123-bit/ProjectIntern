@@ -16,7 +16,7 @@ body, html{
 .boxlogin1{
     position: relative;
     width: 450px;
-    height: 700px;
+    height: 740px;
     left: 300px;
     top: 9px;
 
@@ -188,7 +188,7 @@ body, html{
     position: absolute;
     width: 200px;
     left: 250px;
-    top: 610px;
+    top: 695px;
     color: #bd001c;
     font-family: Roboto;
     font-style: normal;
@@ -201,7 +201,7 @@ body, html{
     width: 320px;
     height: 41px;
     right: 70px;
-    top: 560px;
+    top: 650px;
     background: linear-gradient(66.75deg, #D93B41 40.03%, rgba(0, 255, 41, 0) 211.07%);
     font-size: 20px;
     color: #FFFFFF;
@@ -211,7 +211,7 @@ body, html{
     position: absolute;
     width: 200px;
     left: 120px;
-    top: 596px;
+    top: 680px;
     color: #504244;
     font-family: Roboto;
     font-style: normal;
@@ -231,24 +231,27 @@ body, html{
     font-family: 'Times New Roman', Times, serif;
 }
 .form-regions{
-
-    appearance: none;
-    background-color: transparent;
-    border: none;
-    padding: 0 1em 0 0;
-    margin: 0;
-    width: 100%;
-    font-family: inherit;
-    font-size: inherit;
-    cursor: inherit;
-    line-height: inherit;
+    position: absolute;
+    width: 300px;
+    height: 36px;
+    right: 80px;
+    top: 265px;
+    border: 0.6px solid #B9B6B6;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif;
 }
-.form-regions::-ms-expand {
-    display: none;
-  }
 
-.form-regions{
-    outline: none;
+.form-alamat{
+    position: absolute;
+    width: 300px;
+    height: 36px;
+    right: 80px;
+    top: 265px;
+    border: 0.6px solid #B9B6B6;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .form-emailregis{
@@ -256,7 +259,7 @@ body, html{
     width: 300px;
     height: 36px;
     right: 80px;
-    top: 270px;
+    top: 415px;
     border: 0.6px solid #B9B6B6;
     border-radius: 6px;
     font-size: 15px;
@@ -268,7 +271,7 @@ body, html{
     width: 300px;
     height: 36px;
     right: 80px;
-    top: 350px;
+    top: 490px;
     border: 0.6px solid #B9B6B6;
     border-radius: 6px;
     font-size: 15px;
@@ -279,10 +282,152 @@ body, html{
     width: 300px;
     height: 36px;
     right: 80px;
-    top: 430px;
+    top: 570px;
     border: 0.6px solid #B9B6B6;
     border-radius: 6px;
     font-size: 15px;
     font-family: 'Times New Roman', Times, serif;
     font-weight: 100px;
+}
+
+.valid-email{
+    position: absolute;
+    left: 65px;
+    top: 460px;
+    color: rgb(255, 2, 2);
+}
+.valid-password{
+    position: absolute;
+    left: 65px;
+    top: 530px;
+    color: rgb(255, 2, 2);
+}
+.valid-regions{
+    position: absolute;
+    left: 65px;
+    top: 376px;
+    color: rgb(255, 2, 2);
+}
+.valid-alamat{
+    position: absolute;
+    left: 65px;
+    top: 311px;
+    color: rgb(255, 2, 2);
+}
+.alert-success{
+    position: absolute;
+    left: 56px;
+    top: 290px;
+    width: 300px;
+    color: rgb(12, 106, 0);
+}
+.button-primary{
+    position: absolute;
+    width: 320px;
+    height: 41px;
+    right: 78px;
+    top: 400px;
+    background: linear-gradient(66.75deg, #D93B41 40.03%, rgba(0, 255, 41, 0) 211.07%);
+    font-size: 20px;
+    color: #FFFFFF;
+    border-radius: 6px;
+}
+
+.reset-email{
+    position: absolute;
+    width: 310px;
+    height: 34px;
+    right: 78px;
+    top: 330px;
+    border: 0.6px solid #B9B6B6;
+    border-radius: 6px;
+}
+.form-newpassword{
+    position: absolute;
+    width: 272px;
+    height: 34px;
+    right: -40px;
+    top: 475px;
+    border: 0.6px solid #B9B6B6;
+    border-radius: 6px;
+}
+.reset-button{
+    position: absolute;
+    width: 276px;
+    height: 41px;
+    right: -40px;
+    top: 560px;
+    background: linear-gradient(66.75deg, #D93B41 40.03%, rgba(0, 255, 41, 0) 211.07%);
+    font-size: 20px;
+    color: #FFFFFF;
+    border-radius: 6px;
+}
+
+.text-reset{
+    position: absolute;
+    width: 351px;
+    height: 23px;
+    left: 65px;
+    top: 164px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20pt;
+    line-height: 23px;
+    color: #2e2828;
+    text-shadow: 0px 0.3px 1px rgba(0, 0, 0, 0.25);
+}
+.text-resetparap{
+    position: absolute;
+    width: 300px;
+    left: 65px;
+    top: 210px;
+    color: #504244;
+    font-family: Times New Roman;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 13px;
+}
+
+.wrap .header{
+    background: rgb(253, 14, 14);
+    padding: 2px 10px;
+    text-align: right;
+}
+
+.wrap .menu{
+    background: yellow;
+}
+
+.clear{
+    clear: both;
+}
+
+.badan{
+    height: 800px;
+}
+.wrap .badan .sidebar{
+    background: rgb(0, 238, 8);
+    float: left;
+    width: 10%;
+    height: 100%;
+}
+.wrap .badan .content{
+    background: red;
+    float: left;
+    height: 100%;
+    width: 75%;
+}
+
+.wrap .footer{
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(254, 254, 255);
+    text-align: center;
+}
+
+.nav-button{
+    font-size: 20px;
+    color: #FFFFFF;
 }

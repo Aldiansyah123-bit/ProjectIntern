@@ -1,4 +1,47 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Send Reset Password Link</title>
+    <link rel="stylesheet" href="{{ asset('css/backend.css') }}">
+</head>
+<body>
+    <div class="boxlogin">
+        <div class="boxlogin1">
+            <h1 class="text-reset"><b>Lupa Password</b></h1>
+            <p class="text-resetparap">Silahkan masukkan email Anda untuk menerima link reset password dari kami</p>
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                <form method="POST" action="{{ route('password.email') }}">
+                    @csrf
+                  <div class="input-group mb-8">
+                    <input id="email" type="email" class="reset-email @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+
+                    @error('email')
+                        <span class="invalid-email" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
+                  </div>
+                  <button type="submit" class="button-primary">
+                    {{ __('Send Password Reset Link') }}
+                </button>
+                </form>
+                <div class="box1">
+                </div>
+
+        </div>
+    </div>
+</body>
+</html>
+
+{{-- @extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -44,4 +87,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}

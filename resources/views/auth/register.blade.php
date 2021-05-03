@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="{{asset('select2/dist/css/select2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/register.min.css')}}">
 
     <!-- Script -->
     <script src="{{asset('select2/jquery-3.4.1.js')}}" type="text/javascript"></script>
@@ -19,44 +19,50 @@
 <body>
     <div class="boxlogin">
         <div class="boxlogin1">
-            <div class="logoregis">
+            <div class="">
                 <h1 class="text-regis">Halaman <b>Dafar</b></h1>
                 <p class="text-parap">Silahkan lengkapi data diri dibawah ini</p>
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
-                            <input id="name" type="text" class="form-nameregis @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Nama Lengkap">
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            <select id="regions" name="region_id" class="form-regions @error('name') is-invalid @enderror" style="width: 300px;">
-                                <option value="">--Name Region--</option>
-                            </select>
-                            @error('region_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            <input id="email" type="email" class="form-emailregis @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            <input id="password" type="password" class="form-passregis @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
+                    <input id="name" type="text" class="form-nameregis @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Nama Lengkap">
+                    @error('name')
+                        <span class="valid-name" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <select id="regions" name="region_id" class="form-regions @error('name') is-invalid @enderror">
+                        <option value="">--Name Region--</option>
+                    </select>
+                    @error('region_id')
+                        <span class="valid-regions" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <input id="email" type="email" class="form-emailregis @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+                    @error('email')
+                        <span class="valid-email" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <input id="address" type="text" class="form-alamat @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" placeholder="Masukkan Alamat">
+                    @error('address')
+                        <span class="valid-alamat" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <input id="password" type="password" class="form-passregis @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
 
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            <input type="number" class="form-phoneregis @error('password') is-invalid @enderror" name="phone" required autocomplete="phone" placeholder="Nomor WhatsApp Aktif">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                    @error('password')
+                        <span class="valid-password" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <input type="number" class="form-phoneregis @error('phone') is-invalid @enderror" name="phone" required autocomplete="phone" placeholder="Nomor WhatsApp Aktif">
+                    @error('phone')
+                        <span class="valid-phone" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <button type="submit" class="button1">
                         {{ __('Register') }}
                     </button>
