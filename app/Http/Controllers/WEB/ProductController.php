@@ -25,8 +25,6 @@ class ProductController extends Controller
         $data = [
             'title' => 'Data Product',
             'title1' => 'PRODUCT',
-            'transaction' => DB::table('transactions')->count(),
-            'cart'  => DB::table('carts')->count(),
         ];
 
         $product = Product::all();

@@ -28,8 +28,6 @@ class CartController extends Controller
         $data = [
             'title' => 'Data Cart',
             'title1'=> 'Cart',
-            'transaction' => DB::table('transactions')->count(),
-            'cart'  => DB::table('carts')->count(),
         ];
 
         $cart = Cart::all();

@@ -26,8 +26,6 @@ class BumdeseController extends Controller
         $data = [
             'title'  => 'Data Bumdes',
             'title1' => 'BUMDES',
-            'transaction' => DB::table('transactions')->count(),
-            'cart'  => DB::table('carts')->count(),
         ];
         $bumdes = Bumdese::all();
         return view('bumdes.index', compact('bumdes'), $data);

@@ -22,8 +22,6 @@ class TransactionController extends Controller
         $data = [
             'title' => 'Data Transaction',
             'title1'=> 'Transaction',
-            'transaction' => DB::table('transactions')->count(),
-            'cart'  => DB::table('carts')->count(),
         ];
         $transaction = Transaction::all();
         return view('transaction.index',compact('transaction'),$data);

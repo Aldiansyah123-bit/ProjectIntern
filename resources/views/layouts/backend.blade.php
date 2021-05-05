@@ -137,7 +137,7 @@
                     <img src="{{ asset('AdminLTE/icon/cart.svg') }}" width="30">
                     <p>
                         Cart
-                        <span class="badge badge-danger right">{{ $cart ?? ''}}</span>
+                        <span class="badge badge-danger right">{{ \App\Cart::get()->count() }}</span>
                     </p>
                 </a>
             </li>
@@ -146,7 +146,7 @@
                     <img src="{{ asset('AdminLTE/icon/transaction.svg') }}" width="30">
                     <p>
                         Transactions
-                        <span class="badge badge-danger right">{{ $transaction ?? ''}}</span>
+                        <span class="badge badge-danger right">{{ \App\Transaction::get()->count() }}</span>
                     </p>
                 </a>
             </li>

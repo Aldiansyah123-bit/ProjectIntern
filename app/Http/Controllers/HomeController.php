@@ -27,8 +27,6 @@ class HomeController extends Controller
     {
         $data = [
             'title' => 'Dasboard',
-            'transaction' => DB::table('transactions')->count(),
-            'cart'  => DB::table('carts')->count(),
         ];
         $banners = Banner::all();
         return view('home',compact('banners'), $data);

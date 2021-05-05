@@ -23,8 +23,6 @@ class TransactiondetailController extends Controller
         $data = [
             'title'     => 'Data Transaction Detail',
             'title1'    => 'Transaction Detail',
-            'transaction' => DB::table('transactions')->count(),
-            'cart'  => DB::table('carts')->count(),
         ];
         $transdel = TransactionDetail::all();
         return view('transdel.index',compact('transdel'), $data);
