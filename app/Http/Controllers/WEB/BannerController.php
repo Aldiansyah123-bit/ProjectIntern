@@ -5,6 +5,7 @@ namespace App\Http\Controllers\WEB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Banner;
+use Illuminate\Support\Facades\DB;
 
 class BannerController extends Controller
 {
@@ -22,6 +23,8 @@ class BannerController extends Controller
         $data = [
             'title' => 'Data Banner',
             'title1' => 'Banner',
+            'transaction' => DB::table('transactions')->count(),
+            'cart'  => DB::table('carts')->count(),
         ];
 
         $banner = Banner::all();

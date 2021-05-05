@@ -10,6 +10,7 @@ use App\Umkm;
 use App\User;
 use App\Cartdetail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -27,6 +28,8 @@ class CartController extends Controller
         $data = [
             'title' => 'Data Cart',
             'title1'=> 'Cart',
+            'transaction' => DB::table('transactions')->count(),
+            'cart'  => DB::table('carts')->count(),
         ];
 
         $cart = Cart::all();

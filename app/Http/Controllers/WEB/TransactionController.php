@@ -8,6 +8,7 @@ use App\Transaction;
 use App\User;
 use App\Umkm;
 use App\Bumdese;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -20,7 +21,9 @@ class TransactionController extends Controller
     {
         $data = [
             'title' => 'Data Transaction',
-            'title1'=> 'Transaction'
+            'title1'=> 'Transaction',
+            'transaction' => DB::table('transactions')->count(),
+            'cart'  => DB::table('carts')->count(),
         ];
         $transaction = Transaction::all();
         return view('transaction.index',compact('transaction'),$data);

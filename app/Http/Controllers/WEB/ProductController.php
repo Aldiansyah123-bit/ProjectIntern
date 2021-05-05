@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Umkm;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -24,6 +25,8 @@ class ProductController extends Controller
         $data = [
             'title' => 'Data Product',
             'title1' => 'PRODUCT',
+            'transaction' => DB::table('transactions')->count(),
+            'cart'  => DB::table('carts')->count(),
         ];
 
         $product = Product::all();

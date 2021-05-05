@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Banner;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -26,8 +27,10 @@ class HomeController extends Controller
     {
         $data = [
             'title' => 'Dasboard',
+            'transaction' => DB::table('transactions')->count(),
+            'cart'  => DB::table('carts')->count(),
         ];
-        $banner = Banner::all();
-        return view('home',['banners' => $banner], $data);
+        $banners = Banner::all();
+        return view('home',compact('banners'), $data);
     }
 }

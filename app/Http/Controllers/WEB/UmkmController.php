@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Umkm;
 use App\Region;
+use Illuminate\Support\Facades\DB;
 
 class UmkmController extends Controller
 {
@@ -24,6 +25,8 @@ class UmkmController extends Controller
         $data = [
             'title' => 'Data UMKM',
             'title1' => 'UMKM',
+            'transaction' => DB::table('transactions')->count(),
+            'cart'  => DB::table('carts')->count(),
         ];
 
         $umkm = Umkm::all();

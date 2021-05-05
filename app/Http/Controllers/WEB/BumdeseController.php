@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Bumdese;
 use App\Region;
+use Illuminate\Support\Facades\DB;
 
 class BumdeseController extends Controller
 {
@@ -25,6 +26,8 @@ class BumdeseController extends Controller
         $data = [
             'title'  => 'Data Bumdes',
             'title1' => 'BUMDES',
+            'transaction' => DB::table('transactions')->count(),
+            'cart'  => DB::table('carts')->count(),
         ];
         $bumdes = Bumdese::all();
         return view('bumdes.index', compact('bumdes'), $data);

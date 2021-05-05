@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\TransactionDetail;
 use App\Transaction;
 use App\Product;
+use Illuminate\Support\Facades\DB;
 
 class TransactiondetailController extends Controller
 {
@@ -22,6 +23,8 @@ class TransactiondetailController extends Controller
         $data = [
             'title'     => 'Data Transaction Detail',
             'title1'    => 'Transaction Detail',
+            'transaction' => DB::table('transactions')->count(),
+            'cart'  => DB::table('carts')->count(),
         ];
         $transdel = TransactionDetail::all();
         return view('transdel.index',compact('transdel'), $data);

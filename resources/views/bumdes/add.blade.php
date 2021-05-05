@@ -17,7 +17,6 @@
 
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="{{asset('select2/dist/css/select2.min.css')}}">
-
 <!-- Script -->
 <script src="{{asset('select2/jquery-3.4.1.js')}}" type="text/javascript"></script>
 <script src="{{asset('select2/dist/js/select2.min.js')}}" type="text/javascript"></script>
