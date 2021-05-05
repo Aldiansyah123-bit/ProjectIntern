@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,9 +44,9 @@ class CartController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'user_id'       => 'required',
-            'umkm_id'       => 'required',
-            'bumdes_id'     => 'required',
+            'user_id'       => 'required|string',
+            'umkm_id'       => 'required|integer',
+            'bumdes_id'     => 'required|string',
             'is_checkout'   => 'string|nullable',
         ]);
 
@@ -188,9 +192,9 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'user_id'       => 'required',
-            'umkm_id'       => 'required',
-            'bumdes_id'     => 'required',
+            'user_id'       => 'required|integer',
+            'umkm_id'       => 'required|integer',
+            'bumdes_id'     => 'required|integer',
             'is_checkout'   => 'string|nullable',
         ]);
 

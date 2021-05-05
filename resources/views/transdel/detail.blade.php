@@ -18,11 +18,11 @@
             <div class="card card-outline card-primary">
                 <!-- /.card-header -->
 
-                @foreach ($transaction as $item)
+                @foreach ($transdel as $item)
                 <div class="card-header">
                     <h2 class="card-title">Detail Transaction Number : {{$item->id}}</h2>
                     <div class="card-tools">
-                        <a href="/transaction" type="button" class="btn btn-secondary btn-sm btn-flat">
+                        <a href="/transdel" type="button" class="btn btn-secondary btn-sm btn-flat">
                             <i class="fa fa-undo"></i>Back
                         </a>
                     </div>
@@ -36,16 +36,11 @@
                                 <div class="col-sm-4 invoice-col">
                                     <b>Number : {{$item->id}}</b>
                                         <address>
-                                            Name            : {{$item->user->name}}<br>
-                                            UMKM            : {{$item->umkm->name}}<br>
-                                            Bumdes          : {{$item->bumdes->name}}<br>
-                                            Invoice Number  : {{$item->invoice_number}}<br>
-                                            Address         : {{$item->address}}<br>
-                                            Total Proce     : {{$item->total_price}}<br>
-                                            Discount        : {{$item->discount}}<br>
-                                            Voucher         : {{$item->voucher}}<br>
-                                            Noted           : {{$item->noted}}<br>
-                                            Status          : {{$item->status}}<br>
+                                            Number Transaction      : {{$item->transaction->id}}<br>
+                                            Name Product            : {{$item->product->name}}<br>
+                                            Price                   : Rp. {{number_format($item->price)}}<br>
+                                            Amount                  : {{$item->amount}}<br>
+                                            Flag                    : {{$item->flag}}<br>
                                         </address>
                                 </div>
                             </div>

@@ -68,7 +68,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Price</label>
-                                <input name="price" class="form-control" value="{{number_format($product->price)}}">
+                                <input name="price" class="form-control" value="{{$product->price}}">
                                 <div class="text-danger">
                                     @error('price')
                                         {{ $message }}
@@ -90,7 +90,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Image</label>
-                                <input type="file" name="img" class="form-control" accept="image/png">
+                                <input type="file" name="img" class="form-control" accept="image/png/jpg">
                             <div class="text-danger">
                                 @error('img')
                                     {{ $message }}

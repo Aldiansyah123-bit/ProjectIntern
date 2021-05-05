@@ -21,6 +21,7 @@ class RegisterController extends Controller
             'address'       => 'required',
             'email'         => 'required|email|unique:users',
             'password'      => 'required',
+            'phone'         => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -34,9 +35,7 @@ class RegisterController extends Controller
         $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
         return response()->json([
-            'message' => 'Register Berhasil'
+            ['success'=>$success], $this->successStatus
         ]);
     }
-
-
 }
