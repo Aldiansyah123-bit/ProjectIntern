@@ -30,36 +30,57 @@
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
-<div class="content-header">
+<div class="content">
     <div class="container-fluid">
        <div class="row">
-            <div class="backgroundproduct">
-                <div class="inner">
-                    <h3>150</h3>
-                    <p>New Orders</p>
+            <div class="col-lg-3 col-6">
+                <div class="backgroundproduct">
+                    <div class="inner">
+                        <br>
+                        <p class="staticheader">Penjualan hari Ini</p>
+                        <h3 class="staticnumber">150</h3>
+                        <p class="staticparap">Product</p>
+                        <p class="staticpening">Mengalami Peningkanan 10% Dari Kemarin</p>
+                    </div>
                 </div>
             </div>
-            <div class="backgroundnewpesan">
-                <div class="inner">
-                    <h3>150</h3>
-                    <p>New Orders</p>
+            <div class="col-lg-3 col-6">
+                <div class="backgroundnewpesan">
+                    <div class="inner">
+                        <br>
+                        <p class="staticheader">Anda Mulai</p>
+                        <h3 class="staticnumber">150</h3>
+                        <p class="staticparap">Pesanan Baru</p>
+                    </div>
                 </div>
             </div>
-            <div class="backgroundumkm">
-                <div class="inner">
-                    <h3>150</h3>
-                    <p>New Orders</p>
+            <div class="col-lg-3 col-6">
+                <div class="backgroundumkm">
+                    <div class="inner">
+                        <br>
+                        <p class="staticheader">Sebanyak</p>
+                        <h3 class="staticnumber">150</h3>
+                        <p class="staticparap">UMKM</p>
+                        <p class="staticpening"><b>Telah Terdaftar</b></p>
+                    </div>
                 </div>
             </div>
-            <div class="backgroundpesan1">
-                <div class="inner">
-                    <h3>150</h3>
-                    <p>New Orders</p>
+            <div class="col-lg-3 col-6">
+                <div class="backgroundpesan1">
+                    <div class="inner">
+                        <br>
+                        <p class="staticheader">Anda Mulai</p>
+                        <h3 class="staticnumber">150</h3>
+                        <p class="staticparap">Pesanan Baru</p>
+                    </div>
                 </div>
             </div>
        </div>
     </div><!-- /.container-fluid -->
 </div>
+<br>
+<br>
+
 <script>
     Highcharts.chart('transactions', {
     chart: {

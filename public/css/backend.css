@@ -432,26 +432,49 @@ body, html{
     color: #FFFFFF;
 }
 .backgroundproduct{
-    background-image: url(../AdminLTE/img/product.svg);
-    width: 320px;
-    height: 320px;
+    background-image: url(../AdminLTE/img/product.png);
+    width: 259px;
+    height: 255px;
     text-align: center;
 }
 .backgroundnewpesan{
-    background-image: url(../AdminLTE/img/newpesan.svg);
-    width: 320px;
-    height: 320px;
+    background-image: url(../AdminLTE/img/newpesan.png);
+    width: 255px;
+    height: 249px;
     text-align: center;
 }
 .backgroundumkm{
-    background-image: url(../AdminLTE/img/umkm.svg);
-    width: 320px;
-    height: 320px;
+    background-image: url(../AdminLTE/img/umkm.png);
+    width: 255px;
+    height: 250px;
     text-align: center;
 }
 .backgroundpesan1{
-    background-image: url(../AdminLTE/img/pesan1.svg);
-    width: 320px;
-    height: 320px;
+    background-image: url(../AdminLTE/img/pesan1.png);
+    width: 259px;
+    height: 250px;
     text-align: center;
+}
+.staticparap{
+    margin-top: 15px;
+    font-size: 30px;
+    color: white;
+    font-family: roboto;
+}
+.staticpening{
+    margin-top: -20px;
+    font-size: 13px;
+    color: rgb(255 249 249);
+    font-family: roboto;
+}
+.staticnumber{
+    margin-top: 45px;
+    font-size: 50px;
+    color: white;
+    font-family: roboto;
+}
+.staticheader{
+    font-size: 20px;
+    color: white;
+    font-family: roboto;
 }
