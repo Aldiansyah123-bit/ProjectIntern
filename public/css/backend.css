@@ -431,3 +431,27 @@ body, html{
     font-size: 20px;
     color: #FFFFFF;
 }
+.backgroundproduct{
+    background-image: url(../AdminLTE/img/product.svg);
+    width: 320px;
+    height: 320px;
+    text-align: center;
+}
+.backgroundnewpesan{
+    background-image: url(../AdminLTE/img/newpesan.svg);
+    width: 320px;
+    height: 320px;
+    text-align: center;
+}
+.backgroundumkm{
+    background-image: url(../AdminLTE/img/umkm.svg);
+    width: 320px;
+    height: 320px;
+    text-align: center;
+}
+.backgroundpesan1{
+    background-image: url(../AdminLTE/img/pesan1.svg);
+    width: 320px;
+    height: 320px;
+    text-align: center;
+}

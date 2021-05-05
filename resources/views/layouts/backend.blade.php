@@ -36,6 +36,8 @@
   <!-- AdminLTE for demo purposes -->
   <script src="{{ asset('AdminLTE') }}/dist/js/demo.js"></script>
 
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
